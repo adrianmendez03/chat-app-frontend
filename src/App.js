@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
 
@@ -13,7 +14,11 @@ function App() {
         <Route
           exact
           path="/"
-          render={rp => <Login url={url} />}
+          render={rp => <Login {...rp} url={url} />}
+        />
+        <Route
+          path="/signup"
+          render={rp => <Signup {...rp} url={url}/>}
         />
       </Switch>
     </div>

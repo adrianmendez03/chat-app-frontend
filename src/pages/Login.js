@@ -6,7 +6,6 @@ import Form from '../components/Form'
 const Login = props => {
 
     const { url } = props
-
     let token
     const emptyForm = {
         email: '',
@@ -25,6 +24,7 @@ const Login = props => {
             token = await response.json()
             window.localStorage.setItem('token', JSON.stringify(token))
         }
+        props.history.push('/home')
     }
 
     return (

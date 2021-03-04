@@ -15,20 +15,37 @@ const Form = props => {
     
     const renderInputs = () => {
         return Object.keys(formVals).map((objKey, index) => {
-            return (
-                <input 
-                    key={index}
-                    type="text" 
-                    name={objKey} 
-                    value={formVals[objKey]} 
-                    onChange={e => handleChange(e)}
-                />
-            )
+            if (objKey === 'password') {
+                return (
+                    <input 
+                        key={index}
+                        type="password" 
+                        name={objKey} 
+                        value={formVals[objKey]} 
+                        onChange={e => handleChange(e)}
+                    />
+                )
+            } else {
+                return (
+                    <input 
+                        key={index}
+                        type="text" 
+                        name={objKey} 
+                        value={formVals[objKey]} 
+                        onChange={e => handleChange(e)}
+                    />
+                )
+            }
         })
     }
 
+    const submitForm = (e) => {
+        e.preventDefault()
+        handleSubmit(formVals)
+    }
+
     return (
-        <form onSubmit={() => handleSubmit(form)}>
+        <form onSubmit={e => submitForm(e)}>
             {renderInputs()}
             <input type="submit"/>
         </form>
