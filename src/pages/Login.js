@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import '../styles/Login.css'
 
 import Form from '../components/Form'
 
 const Login = props => {
 
-    const { url } = props
-    let token
+    const [error, setError] = useState('')
+    const { url, handleUser } = props
+    let token = JSON.parse(window.localStorage.getItem('token'))
     const emptyForm = {
         email: '',
         password: ''
     }
+
+    useEffect(() => {
+        if (token) {
+            props.history.push('/home')
+        }
+    }, [props, token])
 
     const handleLogin = async user => {
         if (window.localStorage.getItem('token')) {
@@ -21,17 +29,36 @@ const Login = props => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user)
             })
-            token = await response.json()
-            window.localStorage.setItem('token', JSON.stringify(token))
+            const data = await response.json()
+            if (!data.error) {
+                token = data.token
+                window.localStorage.setItem('token', JSON.stringify(token))
+                await handleUser(data.response)
+                props.history.push('/home')
+            } else {
+                setError(data.error)
+            }
         }
-        props.history.push('/home')
+    }
+
+    const renderError = () => {
+        if (error.length > 0) {
+            return (
+                <div className="error">
+                    {error}
+                </div>
+            )
+        }
     }
 
     return (
-        <div>
-            Login
-            <Form handleSubmit={handleLogin} form={emptyForm} />
-            Don't have an account? Create one <Link to="/signup">here</Link>.
+        <div id="login" className="page">
+            <div className="header">Login</div>
+            <div className="form-container">
+                {renderError()}
+                <Form handleSubmit={handleLogin} form={emptyForm} />
+                <Link to="/signup">Create New Account</Link>
+            </div>
         </div>
     )
 }

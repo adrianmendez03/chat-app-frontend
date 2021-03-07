@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import '../styles/Signup.css'
 
 import Form from '../components/Form'
 
 const Signup = props => {
 
     const { url } = props
+    let token = JSON.parse(window.localStorage.getItem('token'))
     const emptyForm = {
         email: '',
         password: '',
         username: ''
     }
+
+    useEffect(() => {
+        console.log(token)
+        if (token) {
+            props.history.push('/home')
+        }
+    }, [props, token])
 
     const handleSignup = async newUser => {
         await fetch(url + '/auth/signup', {
@@ -21,9 +31,12 @@ const Signup = props => {
     }
 
     return (
-        <div>
-            Signup
-            <Form handleSubmit={handleSignup} form={emptyForm}/>
+        <div id="signup" className="page">
+            <div className="header">Signup</div>
+            <div className="form-container">
+                <Form handleSubmit={handleSignup} form={emptyForm}/>
+                <Link to="/">Login</Link>
+            </div>
         </div>
     )
 }

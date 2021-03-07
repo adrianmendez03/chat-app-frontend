@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../styles/Form.css'
 
 const Form = props => {
 
@@ -12,6 +13,19 @@ const Form = props => {
             [name]: e.target.value
         })
     }
+
+    const createPlaceholder = (name) => {
+        switch(name) {
+            case 'email':
+                return 'Email'
+            case 'password':
+                return 'Password'
+            case 'username':
+                return 'Username'
+            default:
+                break
+        }
+    }
     
     const renderInputs = () => {
         return Object.keys(formVals).map((objKey, index) => {
@@ -19,6 +33,7 @@ const Form = props => {
                 return (
                     <input 
                         key={index}
+                        placeholder={createPlaceholder(objKey)}
                         type="password" 
                         name={objKey} 
                         value={formVals[objKey]} 
@@ -29,6 +44,7 @@ const Form = props => {
                 return (
                     <input 
                         key={index}
+                        placeholder={createPlaceholder(objKey)}
                         type="text" 
                         name={objKey} 
                         value={formVals[objKey]} 
@@ -45,7 +61,7 @@ const Form = props => {
     }
 
     return (
-        <form onSubmit={e => submitForm(e)}>
+        <form className="form" autoComplete="off" onSubmit={e => submitForm(e)}>
             {renderInputs()}
             <input type="submit"/>
         </form>
