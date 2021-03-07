@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import Message from '../components/Message'
 import '../styles/Room.css'
 
 const Room = props => {
@@ -37,18 +38,7 @@ const Room = props => {
 
     const renderMessages = () => {
         return room.messages.map(message => {
-            const username = message.user.username
-            return (
-                <div className="chat" key={message.id}>
-                    <div className="profile">
-                        { username[0] }
-                    </div>
-                    <div className="content">
-                        <div className="room-name">{username}</div>
-                        <div className="message">{message.content}</div>
-                    </div>
-                </div>
-            )
+            return <Message message={message} key={message.id}/>
         })
     }
 

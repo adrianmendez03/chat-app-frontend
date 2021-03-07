@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../styles/Header.css'
+
+import UserContext from '../context/UserContext'
 
 const Header = props => {
 
-    const { signedInUser, handleUser, history } = props
+    const { history } = props
+    const { user, setUser } = useContext(UserContext)
 
     const handleLogout = () => {
         window.localStorage.removeItem('token')
-        handleUser(null)
+        setUser(null)
         history.push('/')
     }
 
     return (
         <div className="nav">
             <div className="profile">
-                { signedInUser.username[0] }
+                { user.username[0] }
             </div>
             <button onClick={handleLogout}>Log out</button>
         </div>

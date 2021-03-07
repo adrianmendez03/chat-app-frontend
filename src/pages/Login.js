@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Login.css'
 
+import UserContext from '../context/UserContext'
 import Form from '../components/Form'
 
 const Login = props => {
 
+    const { setUser } = useContext(UserContext)
     const [error, setError] = useState('')
-    const { url, handleUser } = props
+    const { url } = props
     let token = JSON.parse(window.localStorage.getItem('token'))
     const emptyForm = {
         email: '',
@@ -33,7 +35,8 @@ const Login = props => {
             if (!data.error) {
                 token = data.token
                 window.localStorage.setItem('token', JSON.stringify(token))
-                await handleUser(data.response)
+                // await handleUser(data.response)
+                await setUser(data.response)
                 props.history.push('/home')
             } else {
                 setError(data.error)

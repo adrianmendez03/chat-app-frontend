@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import UserContext from '../context/UserContext'
 import Chat from '../components/Chat'
 
 const Chats = props => {
 
-    const { signedInUser } = props
+    const { user } = useContext(UserContext)
 
     const renderChats = () => {
-        return signedInUser.rooms.map(room => {
+        return user.rooms.map(room => {
             return (
                 <Chat room={room} key={room.id} />
             )

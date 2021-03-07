@@ -9,7 +9,6 @@ import Chats from './Chats'
 
 const Home = props => {
 
-    const { signedInUser, handleUser } = props
     let token = JSON.parse(window.localStorage.getItem('token'))
 
     useEffect(() => {
@@ -20,13 +19,13 @@ const Home = props => {
 
     return (
         <>
-            <Header history={props.history} signedInUser={signedInUser} handleUser={handleUser}/>
+            <Header history={props.history}/>
             <div id="home" className="page">
                 <Switch>
                     <Route 
                         exact
                         path="/home"
-                        render={rp => <Chats {...rp} signedInUser={signedInUser}/>}
+                        render={rp => <Chats {...rp}/>}
                     />
                     <Route 
                         path="/home/search"
