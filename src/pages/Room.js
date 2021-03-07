@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import UserContext from '../context/UserContext'
 import Message from '../components/Message'
 import '../styles/Room.css'
 
 const Room = props => {
 
-    const { url, signedInUser } = props
+    const { user } = useContext(UserContext)
+    const { url } = props
     let token = JSON.parse(window.localStorage.getItem('token'))
     const [room, setRoom] = useState(null)
     const [message, setMessage] = useState('')
@@ -28,7 +30,7 @@ const Room = props => {
     }
 
     const handleSend = async e => {
-        await fetch(`${url}/rooms/${room.id}/messages/${signedInUser.id}`, {
+        await fetch(`${url}/rooms/${room.id}/messages/${user.id}`, {
             method: 'post',
             headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: message })
@@ -36,9 +38,51 @@ const Room = props => {
         setMessage('')
     }
 
+    const createBorderRadius = (sender, index) => {
+        let borderRadius
+        const prevMessage = room.messages[index - 1]
+        const nextMessage = room.messages[index + 1]
+        if (!prevMessage && nextMessage) {
+            if (sender === nextMessage.user.username) {
+                borderRadius = '25px 25px 25px 5px'
+            } else {
+                borderRadius = '25px 25px 25px 25px'
+            }
+        } else if (prevMessage && !nextMessage) {
+            if (sender === prevMessage.user.username) {
+                borderRadius = '5px 25px 25px 25px'
+            } else {
+                borderRadius = '25px 25px 25px 25px'
+            }
+        } else {
+            const prevSender = prevMessage.user.username
+            const nextSender = nextMessage.user.username
+            if (sender === prevSender && sender !== nextSender) {
+                borderRadius = '5px 25px 25px 25px'
+            } else if (sender !== prevSender && sender === nextSender) {
+                borderRadius = '25px 25px 25px 5px'
+            } else {
+                borderRadius = '5px 25px 25px 5px'
+            } 
+        }
+        if (sender === user.username) {
+            borderRadius = borderRadius.split(' ')
+            let temp1 = borderRadius[1]
+            let temp2 = borderRadius[2]
+            borderRadius[1] = borderRadius[0]
+            borderRadius[0] = temp1
+            borderRadius[2] = borderRadius[3]
+            borderRadius[3] = temp2
+            borderRadius = borderRadius.join(' ')
+        }
+        console.log(borderRadius)
+        return borderRadius
+    }
+
     const renderMessages = () => {
-        return room.messages.map(message => {
-            return <Message message={message} key={message.id}/>
+        return room.messages.map((message, index) => {
+            const borderRadius = createBorderRadius(message.user.username, index)
+            return <Message borderRadius={{borderRadius}}message={message} key={message.id}/>
         })
     }
 

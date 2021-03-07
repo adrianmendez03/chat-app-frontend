@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-const Message = ({ message }) => {
+import UserContext from '../context/UserContext'
+import '../styles/Message.css'
 
-    const { user, content } = message 
+const Message = ({ message, borderRadius }) => {
+
+    const { user } = useContext(UserContext)
+    const styles = message.user.username === user.username ? ({ 
+            flexDirection: 'row-reverse', 
+            display: 'none',
+            textAlign: 'right' 
+        }) : ({ 
+            flexDirection: 'row', 
+            display: 'flex',
+            textAlign: 'left' 
+        })
 
     return (
-        <div className="chat">
-            <div className="profile">
-                { user.username[0] }
+        <div className="message" style={{ flexDirection: styles.flexDirection }}>
+            <div className="profile" style={{ display: styles.display }}>
+                { message.user.username[0] }
             </div>
-            <div className="content">
-                <div className="room-name">{user.username}</div>
-                <div className="message">{content}</div>
+            <div className="content" style={{ textAlign: styles.textAlign }}>
+                <div className="room-name" style={{ display: styles.display }}>{message.user.username}</div>
+                <div className="msg" style={borderRadius}>{message.content}</div>
             </div>
         </div>
     )

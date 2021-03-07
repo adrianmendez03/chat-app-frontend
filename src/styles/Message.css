@@ -1,0 +1,29 @@
+.message {
+    display: flex;
+    flex-direction: row;
+    margin: 3px 0;
+}
+
+.message .profile {
+    height: 39px;
+    width: 39px;
+}
+
+.message .content {
+    margin-left: 20px;
+    text-align: left;
+}
+
+.message .content .room-name {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.message .content .msg {
+    font-size: 16px;
+    padding: 10px;
+    width: auto;
+    background: blue;
+    color: white;
+}
