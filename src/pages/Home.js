@@ -8,6 +8,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Search from './Search'
 import Chats from './Chats'
+import Friends from './Friends'
 
 const Home = props => {
 
@@ -33,6 +34,10 @@ const Home = props => {
                     <Route 
                         path="/home/search"
                         render={rp => <Search {...rp} />}
+                    />
+                    <Route 
+                        path="/home/friends"
+                        render={rp => <Friends {...rp}/>}
                     />
                 </Switch>
             </div>
