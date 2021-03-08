@@ -8,6 +8,7 @@ import '../styles/Friends.css'
 const Friends = () => {
 
     const { user } = useContext(UserContext)
+    const friendIds = Object.keys(user.friends)
 
     const renderRequests = () => {
         return user.requests.map(request => {
@@ -16,8 +17,9 @@ const Friends = () => {
     }
 
     const renderFriends = () => {
-        return user.friends.map(friend => {
-            return <Friend friend={friend} key={friend.id}/>
+        const { friends } = user
+        return friendIds.map(friendId => {
+            return <Friend friend={friends[friendId]} key={friendId} />
         })
     }
 
@@ -38,7 +40,7 @@ const Friends = () => {
                 <div className="header">
                     Friends
                     <div className="total" style={{background: 'blue'}}>
-                        {user.friends.length}
+                        {friendIds.length}
                     </div>
                 </div>
                 <div className="friends-container">

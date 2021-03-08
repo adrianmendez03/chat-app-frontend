@@ -14,8 +14,6 @@ const Result = props => {
     const { user, refreshUser } = useContext(UserContext)
     const { url } = useContext(UrlContext)
 
-    console.log(refreshUser, user)
-
     const handleSendRequest = async () => {
         const response = await fetch(`${url}/users/${user.id}/request/${id}`, {
             method: 'post',

@@ -26,6 +26,14 @@ const Login = props => {
         }
     }, [props, user])
 
+    const createFriendsObject = friends => {
+        const friendsObject = {}
+        friends.forEach(friend => {
+            friendsObject[friend.id] = friend
+        })
+        return friendsObject
+    }
+
     const handleLogin = async user => {
         const response = await fetch(url + '/auth/login', {
             method: 'post',
@@ -36,6 +44,7 @@ const Login = props => {
         if (!data.error) {
             token = data.token
             window.localStorage.setItem('token', JSON.stringify(token))
+            data.response.friends = await createFriendsObject(data.response.friends)
             await setUser(data.response)
             const socket = await io.connect('http://localhost:4000')
             socket.emit('saveUser', data.response.id)
