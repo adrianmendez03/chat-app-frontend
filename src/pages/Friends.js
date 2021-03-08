@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 
 import UserContext from '../context/UserContext'
 import Request from '../components/Request'
+import Friend from '../components/Friend'
 import '../styles/Friends.css'
 
 const Friends = () => {
@@ -11,6 +12,12 @@ const Friends = () => {
     const renderRequests = () => {
         return user.requests.map(request => {
             return <Request request={request} key={request.User_Requests.requestId}/>
+        })
+    }
+
+    const renderFriends = () => {
+        return user.friends.map(friend => {
+            return <Friend friend={friend} key={friend.id}/>
         })
     }
 
@@ -27,10 +34,15 @@ const Friends = () => {
                     {renderRequests()}
                 </div>
             </div>
-            <div className="header">
-                Friends
-                <div className="total" style={{background: 'blue'}}>
-                    {user.friends.length}
+            <div className="friends">
+                <div className="header">
+                    Friends
+                    <div className="total" style={{background: 'blue'}}>
+                        {user.friends.length}
+                    </div>
+                </div>
+                <div className="friends-container">
+                    {renderFriends()}
                 </div>
             </div>
         </div>
