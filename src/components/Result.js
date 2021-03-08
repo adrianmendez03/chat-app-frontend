@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 
 import UserContext from '../context/UserContext'
 import UrlContext from '../context/UrlContext'
+import ProfileIcon from './ProfileIcon'
 import '../styles/Result.css'
 
 const Result = props => {
@@ -22,9 +23,7 @@ const Result = props => {
 
     return (
         <div className="result">
-            <div className="profile">
-                {username[0]}
-            </div>
+            <ProfileIcon username={username}/>
             <div className="content">
                 <div className="username">{username}</div>
                 <i className="fas fa-user-plus" onClick={handleSendRequest}></i>

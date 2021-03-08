@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import ProfileIcon from './ProfileIcon'
 import '../styles/Chat.css'
 
 const Chat = props => {
@@ -17,9 +18,7 @@ const Chat = props => {
 
     return (
         <Link to={`/room/${room.id}`} className="chat">
-            <div className="profile">
-                { room.users[0].username[0] }
-            </div>
+            <ProfileIcon username={room.users[0].username}/>
             <div className="content">
                 <div className="room-name">{room.name}</div>
                 <div className="message">{renderMessage()}</div>
