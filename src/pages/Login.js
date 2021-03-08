@@ -5,14 +5,15 @@ import io from 'socket.io-client'
 import '../styles/Login.css'
 import SocketContext from '../context/SocketContext'
 import UserContext from '../context/UserContext'
+import UrlContext from '../context/UrlContext'
 import Form from '../components/Form'
 
 const Login = props => {
 
+    const { url } = useContext(UrlContext)
     const { user, setUser } = useContext(UserContext)
     const { setSocket } = useContext(SocketContext)
     const [error, setError] = useState('')
-    const { url } = props
     let token = JSON.parse(window.localStorage.getItem('token'))
     const emptyForm = {
         email: '',

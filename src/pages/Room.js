@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import UrlContext from '../context/UrlContext'
 import UserContext from '../context/UserContext'
 import Message from '../components/Message'
 import '../styles/Room.css'
@@ -8,7 +9,7 @@ import '../styles/Room.css'
 const Room = props => {
 
     const { user } = useContext(UserContext)
-    const { url } = props
+    const { url } = useContext(UrlContext)
     let token = JSON.parse(window.localStorage.getItem('token'))
     const [room, setRoom] = useState(null)
     const [message, setMessage] = useState('')

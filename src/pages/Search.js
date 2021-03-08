@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import UserContext from '../context/UserContext'
+import UrlContext from '../context/UrlContext'
 import Result from '../components/Result'
 
 const Search = props => {
 
-    const { url } = props
+    const { url } = useContext(UrlContext)
     const token = JSON.parse(window.localStorage.getItem('token'))
     const { user } = useContext(UserContext)
     const [searchVal, setSearchVal] = useState('')
@@ -42,6 +43,7 @@ const Search = props => {
     return (
         <div>
             <input type="text" placeholder="Search by username" value={searchVal} onChange={handleChange} />
+            <span>{`Showing results for "${searchVal}"`}</span>
             <div>
                 {renderResults()}
             </div>

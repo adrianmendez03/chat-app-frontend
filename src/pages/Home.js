@@ -11,7 +11,6 @@ import Chats from './Chats'
 
 const Home = props => {
 
-    const { url } = props
     const { user } = useContext(UserContext)
     // const { socket } = useContext(SocketContext)
 
@@ -33,7 +32,7 @@ const Home = props => {
                     />
                     <Route 
                         path="/home/search"
-                        render={rp => <Search {...rp} url={url} />}
+                        render={rp => <Search {...rp} />}
                     />
                 </Switch>
             </div>
