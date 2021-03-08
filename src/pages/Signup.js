@@ -15,12 +15,12 @@ const Signup = props => {
         username: ''
     }
 
-    useEffect(() => {
-        console.log(token)
-        if (token) {
-            props.history.push('/home')
-        }
-    }, [props, token])
+    // useEffect(() => {
+    //     console.log(token)
+    //     if (token) {
+    //         props.history.push('/home')
+    //     }
+    // }, [props, token])
 
     const handleSignup = async newUser => {
         await fetch(url + '/auth/signup', {

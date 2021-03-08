@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 
+import SocketContext from '../context/SocketContext'
 import UserContext from '../context/UserContext'
 import UrlContext from '../context/UrlContext'
 import ProfileIcon from './ProfileIcon'
@@ -9,8 +10,11 @@ const Result = props => {
 
     const { username, id } = props
     const token = JSON.parse(window.localStorage.getItem('token'))
-    const { user } = useContext(UserContext)
+    const { socket } = useContext(SocketContext)
+    const { user, refreshUser } = useContext(UserContext)
     const { url } = useContext(UrlContext)
+
+    console.log(refreshUser, user)
 
     const handleSendRequest = async () => {
         const response = await fetch(`${url}/users/${user.id}/request/${id}`, {
@@ -18,6 +22,8 @@ const Result = props => {
             headers: { Authorization: `Bearer ${token}`}
         })
         const data = await response.json()
+        socket.emit('notification', id)
+        refreshUser(user.id)
         console.log(data)
     }
 

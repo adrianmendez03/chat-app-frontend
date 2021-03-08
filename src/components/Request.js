@@ -23,7 +23,7 @@ const Request = props => {
     }
 
     const handleDelete = async () => {
-        const response = await fetch(`${url}/users/${user.id}/friend/${request.id}`, {
+        const response = await fetch(`${url}/users/${user.id}/request/${request.id}`, {
             method: 'delete',
             headers: { Authorization: `Bearer ${token}`}
         })

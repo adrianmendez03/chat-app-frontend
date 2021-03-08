@@ -12,9 +12,19 @@ import Room from './pages/Room'
 
 function App() {
 
+  const refreshUser = async (id) => {
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    const response = await fetch(`https://text-app-backend.herokuapp.com/users/${id}`, {
+      method: 'get',
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    const data = await response.json()
+    setUser(data)
+  }
+
   const [user, setUser] = useState(null)
   const [socket, setSocket] = useState(null)
-  const userValue = { user, setUser }
+  const userValue = { user, setUser, refreshUser }
   const socketValue = { socket, setSocket }
 
   const handleUser = user => {
