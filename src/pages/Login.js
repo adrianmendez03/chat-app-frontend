@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import '../styles/Login.css'
+import io from 'socket.io-client'
 
+import '../styles/Login.css'
+import SocketContext from '../context/SocketContext'
 import UserContext from '../context/UserContext'
 import Form from '../components/Form'
 
 const Login = props => {
 
-    const { setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
+    const { setSocket } = useContext(SocketContext)
     const [error, setError] = useState('')
     const { url } = props
     let token = JSON.parse(window.localStorage.getItem('token'))
@@ -17,30 +20,28 @@ const Login = props => {
     }
 
     useEffect(() => {
-        if (token) {
+        if (user) {
             props.history.push('/home')
         }
-    }, [props, token])
+    }, [props, user])
 
     const handleLogin = async user => {
-        if (window.localStorage.getItem('token')) {
-            token = JSON.parse(window.localStorage.getItem('token'))
+        const response = await fetch(url + '/auth/login', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        })
+        const data = await response.json()
+        if (!data.error) {
+            token = data.token
+            window.localStorage.setItem('token', JSON.stringify(token))
+            await setUser(data.response)
+            const socket = await io.connect('http://localhost:4000')
+            socket.emit('saveUser', data.response.id)
+            await setSocket(socket)
+            props.history.push('/home')
         } else {
-            const response = await fetch(url + '/auth/login', {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            })
-            const data = await response.json()
-            if (!data.error) {
-                token = data.token
-                window.localStorage.setItem('token', JSON.stringify(token))
-                // await handleUser(data.response)
-                await setUser(data.response)
-                props.history.push('/home')
-            } else {
-                setError(data.error)
-            }
+            setError(data.error)
         }
     }
 

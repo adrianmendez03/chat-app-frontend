@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import '../styles/Home.css'
 
+import '../styles/Home.css'
+import UserContext from '../context/UserContext'
+// import SocketContext from '../context/SocketContext'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Search from './Search'
@@ -9,13 +11,15 @@ import Chats from './Chats'
 
 const Home = props => {
 
-    let token = JSON.parse(window.localStorage.getItem('token'))
+    const { url } = props
+    const { user } = useContext(UserContext)
+    // const { socket } = useContext(SocketContext)
 
     useEffect(() => {
-        if (token.length === 0) {
+        if (!user) {
             props.history.push('/')
         }
-    }, [props, token])
+    }, [props, user])
 
     return (
         <>
@@ -29,7 +33,7 @@ const Home = props => {
                     />
                     <Route 
                         path="/home/search"
-                        render={rp => <Search {...rp} />}
+                        render={rp => <Search {...rp} url={url} />}
                     />
                 </Switch>
             </div>
