@@ -4,6 +4,7 @@ import SocketContext from '../context/SocketContext'
 import UserContext from '../context/UserContext'
 import UrlContext from '../context/UrlContext'
 import ProfileIcon from './ProfileIcon'
+import Action from './Action'
 import '../styles/Result.css'
 
 const Result = props => {
@@ -25,12 +26,27 @@ const Result = props => {
         console.log(data)
     }
 
+    const handleSendMessage = () => {
+        console.log(`send message i'll figure this out later`)
+    }
+
+    const renderActions = () => {
+        if (user.friends[id]) {
+            return <Action type="message" handleClick={handleSendMessage} background={{ background: `rgba(0, 0, 255, 0.6)`}} />
+        } else {
+            return <Action type="send friend request" handleClick={handleSendRequest} background={{ background: 'rgba(0, 0, 255, 0.6)'}}/>
+        }
+        
+    }
+
     return (
         <div className="result">
             <ProfileIcon username={username}/>
             <div className="content">
                 <div className="username">{username}</div>
-                <i className="fas fa-user-plus" onClick={handleSendRequest}></i>
+                <div className="actions">
+                    {renderActions()}
+                </div>
             </div>
         </div>
     )

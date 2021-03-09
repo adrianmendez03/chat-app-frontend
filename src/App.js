@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Room from './pages/Room'
+import User from './pages/User'
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
               <Route
                 exact
                 path="/"
-                render={rp => <Login {...rp} handleUser={handleUser} />}
+                render={rp => <Login {...rp} />}
               />
               <Route
                 path="/signup"
@@ -48,11 +49,15 @@ function App() {
               />
               <Route
                 path="/home"
-                render={rp => <Home {...rp} handleUser={handleUser} user={user} />}
+                render={rp => <Home {...rp} />}
               />
               <Route
                 path="/room/:id"
-                render={rp => <Room {...rp} user={user} />}
+                render={rp => <Room {...rp} />}
+              />
+              <Route
+                path="/user/:id"
+                render={rp => <User {...rp} />}
               />
             </Switch>
           </div>

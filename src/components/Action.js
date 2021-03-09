@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../styles/Action.css'
+
 const Action = props => {
     const { type, handleClick, background } = props
 
