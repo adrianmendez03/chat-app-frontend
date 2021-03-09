@@ -40,19 +40,20 @@ const Room = props => {
 
     const createBorderRadius = (sender, index) => {
 
-        let borderRadius
+        let borderRadius = ''
         const prevMessage = room.messages[index - 1]
         const nextMessage = room.messages[index + 1]
 
+        // Case: Previous message does not exist - Next message does exist
         if (!prevMessage && nextMessage) {
-
             if (sender === nextMessage.user.username) {
                 borderRadius = '25px 25px 25px 5px'
             } else {
                 borderRadius = '25px 25px 25px 25px'
             }
-
-        } else if (prevMessage && !nextMessage) {
+        } 
+        // Case: Previous message does exist - Next message does not exist
+        else if (prevMessage && !nextMessage) {
 
             if (sender === prevMessage.user.username) {
                 borderRadius = '5px 25px 25px 25px'
@@ -60,7 +61,9 @@ const Room = props => {
                 borderRadius = '25px 25px 25px 25px'
             }
 
-        } else if (prevMessage && nextMessage){
+        } 
+        // Case: Both Previous and Next message exist
+        else if (prevMessage && nextMessage){
 
             const prevSender = prevMessage.user.username
             const nextSender = nextMessage.user.username
@@ -72,24 +75,17 @@ const Room = props => {
                 borderRadius = '5px 25px 25px 5px'
             } 
         }
-        if (sender === user.username) {
-            borderRadius = borderRadius.split(' ')
-            let temp1 = borderRadius[1]
-            let temp2 = borderRadius[2]
-            borderRadius[1] = borderRadius[0]
-            borderRadius[0] = temp1
-            borderRadius[2] = borderRadius[3]
-            borderRadius[3] = temp2
-            borderRadius = borderRadius.join(' ')
+        // Case: Neither messages exist aka only one message in conversation
+        else {
+            borderRadius = '25px 25px 25px 25px'
         }
-        console.log(borderRadius)
         return borderRadius
     }
 
     const renderMessages = () => {
         return room.messages.map((message, index) => {
             const borderRadius = createBorderRadius(message.user.username, index)
-            return <Message message={message} borderRadius={{borderRadius}} key={message.id}/>
+            return <Message message={message} borderRadius={borderRadius} key={message.id}/>
         })
     }
 

@@ -49,7 +49,6 @@ const Login = props => {
             data.response.friends = await createObjectFromArray(friends)
             data.response.requests = await createObjectFromArray(requests)
             data.response.rooms = await createObjectFromArray(rooms)
-            console.log(data.response.rooms)
 
             await setUser(data.response)
 
