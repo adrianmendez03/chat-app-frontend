@@ -13,7 +13,7 @@ const ChatBar = props => {
     return (
         <div className="footer">
             <input type="text" value={message} onChange={handleChange}/>
-            <button onClick={handleSend}><i className="fas fa-share"></i></button>
+            <button onClick={() => handleSend(message)}><i className="fas fa-share"></i></button>
         </div>
     )
 }
