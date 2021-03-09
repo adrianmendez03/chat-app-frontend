@@ -10,7 +10,7 @@ const Friend = props => {
     const { friend, privateRooms } = props
     const { user } = useContext(UserContext)
 
-    const privateRoomId = null
+    let privateRoomId = null
 
     const doesPrivateRoomExistBetweenUserAndFriend = () => {
         privateRooms.forEach(roomId => {

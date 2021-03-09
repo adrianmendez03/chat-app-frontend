@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Room from './pages/Room'
+import MessageFriend from './pages/MessageFriend'
 import User from './pages/User'
 
 function App() {
@@ -27,10 +28,6 @@ function App() {
   const [socket, setSocket] = useState(null)
   const userValue = { user, setUser, refreshUser }
   const socketValue = { socket, setSocket }
-
-  const handleUser = user => {
-    setUser(user)
-  }
 
   return (
     <UserContext.Provider value={userValue}>
@@ -53,7 +50,7 @@ function App() {
               />
               <Route
                 path="/message/:friendId"
-                render={rp => <Room {...rp} />}
+                render={rp => <MessageFriend {...rp} />}
               />
               <Route
                 path="/room/:roomId"

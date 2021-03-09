@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Signup.css'
 
@@ -8,7 +8,7 @@ import Form from '../components/Form'
 const Signup = props => {
 
     const { url } = useContext(UrlContext)
-    let token = JSON.parse(window.localStorage.getItem('token'))
+    // let token = JSON.parse(window.localStorage.getItem('token'))
     const emptyForm = {
         email: '',
         password: '',
