@@ -20,6 +20,7 @@ const Friends = () => {
 
     const { user } = useContext(UserContext)
     const friendIds = Object.keys(user.friends)
+    const requestIds = Object.keys(user.requests)
     const [selected, setSelected] = useState('friends')
     const [styles, setStyles] = useState({
         friends: stylesObj.selected,
@@ -27,8 +28,9 @@ const Friends = () => {
     })
 
     const renderRequests = () => {
-        return user.requests.map(request => {
-            return <Request request={request} key={request.User_Requests.requestId}/>
+        const { requests } = user
+        return requestIds.map(requestId => {
+            return <Request request={requests[requestId]} key={requests[requestId].User_Requests.requestId}/>
         })
     }
 
@@ -80,7 +82,7 @@ const Friends = () => {
                     onClick={() => handleClick('requests')} 
                     style={styles.requests}
                 >
-                    REQUESTS {renderCount(user.requests.length)}
+                    REQUESTS {renderCount(requestIds.length)}
                 </div>
             </div>
             <div className="container">

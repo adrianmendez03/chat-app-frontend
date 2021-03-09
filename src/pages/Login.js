@@ -14,7 +14,6 @@ const Login = props => {
     const { user, setUser } = useContext(UserContext)
     const { setSocket } = useContext(SocketContext)
     const [error, setError] = useState('')
-    let token = JSON.parse(window.localStorage.getItem('token'))
     const emptyForm = {
         email: '',
         password: ''
@@ -26,12 +25,12 @@ const Login = props => {
         }
     }, [props, user])
 
-    const createFriendsObject = friends => {
-        const friendsObject = {}
-        friends.forEach(friend => {
-            friendsObject[friend.id] = friend
+    const createObjectFromArray = arr => {
+        const obj = {}
+        arr.forEach(elem => {
+            obj[elem.id] = elem
         })
-        return friendsObject
+        return obj
     }
 
     const handleLogin = async user => {
@@ -42,13 +41,24 @@ const Login = props => {
         })
         const data = await response.json()
         if (!data.error) {
-            token = data.token
+            const { token } = data
+            const { friends, requests, rooms } = data.response
+
             window.localStorage.setItem('token', JSON.stringify(token))
-            data.response.friends = await createFriendsObject(data.response.friends)
+
+            data.response.friends = await createObjectFromArray(friends)
+            data.response.requests = await createObjectFromArray(requests)
+            data.response.rooms = await createObjectFromArray(rooms)
+            console.log(data.response.rooms)
+
             await setUser(data.response)
+
             const socket = await io.connect('http://localhost:4000')
+
             socket.emit('saveUser', data.response.id)
+
             await setSocket(socket)
+            
             props.history.push('/home')
         } else {
             setError(data.error)

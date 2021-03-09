@@ -7,11 +7,12 @@ import Chat from '../components/Chat'
 const Chats = props => {
 
     const { user } = useContext(UserContext)
+    const roomIds = Object.keys(user.rooms)
 
     const renderChats = () => {
-        return user.rooms.map(room => {
+        return roomIds.map(roomId => {
             return (
-                <Chat room={room} key={room.id} />
+                <Chat room={user.rooms[roomId]} key={roomId} />
             )
         })
     }
