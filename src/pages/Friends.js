@@ -5,7 +5,7 @@ import Request from '../components/Request'
 import Friend from '../components/Friend'
 import '../styles/Friends.css'
 
-const Friends = () => {
+const Friends = props => {
 
     const stylesObj = {
         selected: {
@@ -21,25 +21,16 @@ const Friends = () => {
     const { user } = useContext(UserContext)
     const friendIds = Object.keys(user.friends)
     const requestIds = Object.keys(user.requests)
+    const roomIds = Object.keys(user.rooms)
     const [selected, setSelected] = useState('friends')
     const [styles, setStyles] = useState({
         friends: stylesObj.selected,
         requests: stylesObj.notSelected
     })
 
-    const renderRequests = () => {
-        const { requests } = user
-        return requestIds.map(requestId => {
-            return <Request request={requests[requestId]} key={requests[requestId].User_Requests.requestId}/>
-        })
-    }
-
-    const renderFriends = () => {
-        const { friends } = user
-        return friendIds.map(friendId => {
-            return <Friend friend={friends[friendId]} key={friendId} />
-        })
-    }
+    const privateRooms = roomIds.filter(roomId => {
+        return user.rooms[roomId].users.length < 2
+    })
 
     const handleClick = current => {
         console.log('triggered')
@@ -59,12 +50,27 @@ const Friends = () => {
         }
     }
 
+
     const renderCount = (count) => {
         if (count === 0) {
             return null
         } else {
             return count
         }
+    }
+
+    const renderRequests = () => {
+        const { requests } = user
+        return requestIds.map(requestId => {
+            return <Request request={requests[requestId]} key={requests[requestId].User_Requests.requestId}/>
+        })
+    }
+
+    const renderFriends = () => {
+        const { friends } = user
+        return friendIds.map(friendId => {
+            return <Friend privateRooms={privateRooms} friend={friends[friendId]} history={props.history} key={friendId} />
+        })
     }
 
     return (

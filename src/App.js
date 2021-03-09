@@ -52,7 +52,11 @@ function App() {
                 render={rp => <Home {...rp} />}
               />
               <Route
-                path="/room/:id"
+                path="/message/:friendId"
+                render={rp => <Room {...rp} />}
+              />
+              <Route
+                path="/room/:roomId"
                 render={rp => <Room {...rp} />}
               />
               <Route
