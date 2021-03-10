@@ -17,6 +17,8 @@ import User from './pages/User'
 
 function App() {
 
+  // console.log('refrresh app')
+
   const refreshUser = async (id) => {
     const token = JSON.parse(window.localStorage.getItem('token'))
     const response = await fetch(`https://text-app-backend.herokuapp.com/users/${id}`, {

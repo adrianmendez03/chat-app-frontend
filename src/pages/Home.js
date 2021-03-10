@@ -16,6 +16,8 @@ import '../styles/Home.css'
 
 const Home = props => {
 
+    // console.log('refresh home')
+
     const token = JSON.parse(window.localStorage.getItem('token'))
 
     const { user, setUser } = useContext(UserContext)

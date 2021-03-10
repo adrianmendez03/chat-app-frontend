@@ -12,9 +12,15 @@ const ChatBar = props => {
         setMessage(e.target.value)
     }
 
+    const handleSendMessage = (e) => {
+        e.preventDefault()
+        handleSend(message)
+        setMessage('')
+    }
+
     const renderSendButton = () => {
         return message.length > 0 ? (
-            <button onClick={() => handleSend(message)}>send</button>
+            <button onClick={handleSendMessage}>send</button>
         ) : (
             <button></button>
         )
