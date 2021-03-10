@@ -2,15 +2,18 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import UserContext from '../context/UserContext'
 import UrlContext from '../context/UrlContext'
+import SocketContext from '../context/SocketContext'
 import ProfileIcon from '../components/ProfileIcon'
 import Backpage from '../components/Backpage'
 import '../styles/User.css'
 
 const User = props => {
 
+    const { history } = props
     const { id } = props.match.params
     const token = JSON.parse(window.localStorage.getItem('token'))
-    const { user } = useContext(UserContext)
+    const { socket, setSocket } = useContext(SocketContext)
+    const { user, setUser } = useContext(UserContext)
     const { url } = useContext(UrlContext)
     const [userToDisplay, setUserToDisplay] = useState(null)
 
@@ -27,6 +30,14 @@ const User = props => {
         }
         fetchUser()
     }, [])
+
+    const handleLogout = () => {
+        window.localStorage.removeItem('token')
+        setUser(null)
+        socket.disconnect()
+        setSocket(null)
+        history.push('/')
+    }
 
     const loading = () => <h2>Loading...</h2>
     const loaded = () => {
@@ -61,6 +72,13 @@ const User = props => {
                         </div>
                         <div className="content">
                             Username
+                        </div>
+                    </div>
+                    <div className="option" onClick={handleLogout}>
+                        <div className="icon">
+                        </div>
+                        <div className="content">
+                            Logout
                         </div>
                     </div>
                     <div className="option">

@@ -20,6 +20,6 @@
     height: 100%;
     width: 36px;
     border-radius: 25px;
-    background: rgba(0, 0, 0, 0.10);
+    background: rgb(231, 231, 231);
     text-transform: capitalize;
 }

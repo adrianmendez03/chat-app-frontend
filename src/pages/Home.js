@@ -37,7 +37,7 @@ const Home = props => {
     return (
         <>
             <Header history={props.history}/>
-            <div id="home" className="page">
+            <div id="home">
                 <Switch>
                     <Route 
                         exact

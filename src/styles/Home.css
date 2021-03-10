@@ -1,3 +1,12 @@
 #home {
     margin: 56px 0;
 }
+
+#home .searchbar {
+    border-radius: 25px;
+    font-size: 16px;
+    padding: 6px 10px;
+    outline: none;
+    background: rgb(231, 231, 231);
+    border: none;
+}
