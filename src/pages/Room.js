@@ -1,44 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import UrlContext from '../context/UrlContext'
 import UserContext from '../context/UserContext'
-// import SocketContext from '../context/SocketContext'
+import SocketContext from '../context/SocketContext'
 import Message from '../components/Message'
 import ChatBar from '../components/ChatBar'
 import ChatNav from '../components/ChatNav'
 import '../styles/Room.css'
 
-const Room = props => {
-
-    const { roomId } = props.match.params
-    const { user } = useContext(UserContext)
-    const { url } = useContext(UrlContext)
-    // const { socket } = useContext(SocketContext)
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    const [room, setRoom] = useState(null)
-
-    useEffect(() => { 
-        const fetchRoom = async () => {
-            const reponse = await fetch(`${url}/rooms/${roomId}`, {
-                method: 'get',
-                headers: { Authorization: `Bearer ${token}`}
-            })
-            const data = await reponse.json()
-            setRoom(data)
-        }
-        fetchRoom()
-    }, [roomId, token, url])
-
-    const handleSend = async (message) => {
-        await fetch(`${url}/rooms/${room.id}/messages/${user.id}`, {
-            method: 'post',
-            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: message })
-        })
-        // setMessage('')
-    }
-
-    const createBorderRadius = (sender, index) => {
+const createBorderRadius = (room, sender, index) => {
 
         let borderRadius = ''
         const prevMessage = room.messages[index - 1]
@@ -80,11 +50,63 @@ const Room = props => {
             borderRadius = '25px 25px 25px 25px'
         }
         return borderRadius
+}
+
+const Room = props => {
+
+    const { roomId } = props.match.params
+    const { user } = useContext(UserContext)
+    const { url } = useContext(UrlContext)
+    const { socket } = useContext(SocketContext)
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    const [room, setRoom] = useState(null)
+    const [messages, setMessages] = useState(null)
+
+    console.log('refresh')
+
+    socket.on('newMessage', () => {
+        console.log('new message')
+        // fetchRoom()
+    })
+
+    const fetchRoom = useCallback(async () => {
+        const reponse = await fetch(`${url}/rooms/${roomId}`, {
+            method: 'get',
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        const data = await reponse.json()
+        console.log(data)
+        setRoom(data)
+        setMessages(data.messages)
+    }, [])
+
+    useEffect(() => {
+
+        fetchRoom()
+        socket.emit('joinRoom', roomId)
+
+        return () => {
+            socket.emit('leaveRoom', roomId)
+            setRoom(null)
+            setMessages(null)
+        }
+    }, [])
+
+    const handleSend = async (message) => {
+        const response = await fetch(`${url}/rooms/${room.id}/messages/${user.id}`, {
+            method: 'post',
+            headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: message })
+        })
+        const data = await response.json()
+        if (data.message) {
+            socket.emit('message', { content: message, user: { username: user.username }})
+        } 
     }
 
     const renderMessages = () => {
-        return room.messages.map((message, index) => {
-            const borderRadius = createBorderRadius(message.user.username, index)
+        return messages.map((message, index) => {
+            const borderRadius = createBorderRadius(room, message.user.username, index)
             return <Message message={message} borderRadius={borderRadius} key={message.id}/>
         })
     }
@@ -104,7 +126,7 @@ const Room = props => {
         )
     }
 
-    return room ? loaded() : loading()
+    return messages ? loaded() : loading()
 }
 
 export default Room

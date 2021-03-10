@@ -54,7 +54,7 @@ function App() {
               />
               <Route
                 path="/room/:roomId"
-                render={rp => <Room {...rp} />}
+                render={rp => <Room socket={socket}{...rp} />}
               />
               <Route
                 path="/user/:id"

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 import '../styles/Header.css'
 import SocketContext from '../context/SocketContext'
@@ -20,9 +21,9 @@ const Header = props => {
 
     return (
         <div className="nav">
-            <div className="profile">
+            <Link to={`/user/${user.id}`} className="profile">
                 { user.username[0] }
-            </div>
+            </Link>
             <button onClick={handleLogout}>Log out</button>
         </div>
     )
