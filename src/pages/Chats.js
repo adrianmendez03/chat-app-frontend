@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { UserContext } from '../context'
 import Chat from '../components/Chat'
+import FriendsMini from '../components/FriendsMini'
 
 const Chats = props => {
 
@@ -19,6 +20,7 @@ const Chats = props => {
 
     return (
         <div className="page">
+            <FriendsMini />
             <Link to="/home/search"><input className="text-input" type="text" placeholder="Search by username"/></Link>
             {renderChats()}
         </div>
