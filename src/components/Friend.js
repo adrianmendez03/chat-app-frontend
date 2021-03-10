@@ -7,16 +7,18 @@ import '../styles/Friend.css'
 
 const Friend = props => {
 
-    const { friend, privateRooms } = props
+    const { friend, roomIds } = props
     const { user } = useContext(UserContext)
 
     let privateRoomId = null
 
     const doesPrivateRoomExistBetweenUserAndFriend = () => {
-        privateRooms.forEach(roomId => {
-            if (user.rooms[roomId].users.includes(friend.id)) {
-                privateRoomId = user.rooms[roomId].id
-            }
+        roomIds.forEach(roomId => {
+            user.rooms[roomId].users.forEach(userInRoom => {
+                if (userInRoom.id === friend.id) {
+                    privateRoomId = roomId
+                }
+            })
         })
     }
 

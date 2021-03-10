@@ -28,9 +28,9 @@ const Friends = props => {
         requests: stylesObj.notSelected
     })
 
-    const privateRooms = roomIds.filter(roomId => {
-        return user.rooms[roomId].users.length < 2
-    })
+    // const privateRooms = roomIds.filter(roomId => {
+    //     return user.rooms[roomId].users.length < 2
+    // })
 
     const handleClick = current => {
         if (current !== 'friends') {
@@ -68,7 +68,7 @@ const Friends = props => {
     const renderFriends = () => {
         const { friends } = user
         return friendIds.map(friendId => {
-            return <Friend privateRooms={privateRooms} friend={friends[friendId]} key={friendId} />
+            return <Friend roomIds={roomIds} friend={friends[friendId]} key={friendId} />
         })
     }
 
