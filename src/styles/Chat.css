@@ -11,6 +11,9 @@
 }
 
 .chat .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-left: 20px;
     text-align: left;
 }
@@ -22,5 +25,7 @@
 }
 
 .chat .content .message {
+    display: flex;
+    flex-wrap: wrap;
     font-size: 16px;
 }
