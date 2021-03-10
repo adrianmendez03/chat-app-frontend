@@ -29,42 +29,46 @@ function App() {
 
   const [user, setUser] = useState(null)
   const [socket, setSocket] = useState(null)
+  const [history, setHistory] = useState(null)
   const userValue = { user, setUser, refreshUser }
   const socketValue = { socket, setSocket }
+  const historyValue = { history, setHistory }
 
   return (
     <UserContext.Provider value={userValue}>
       <SocketContext.Provider value={socketValue}>
         <UrlContext.Provider value={{url: "https://text-app-backend.herokuapp.com"}}>
-          <div className="app">
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={rp => <Login {...rp} />}
-              />
-              <Route
-                path="/signup"
-                render={rp => <Signup {...rp} />}
-              />
-              <Route
-                path="/home"
-                render={rp => <Home {...rp} />}
-              />
-              <Route
-                path="/message/:friendId"
-                render={rp => <MessageFriend {...rp} />}
-              />
-              <Route
-                path="/room/:roomId"
-                render={rp => <Room socket={socket}{...rp} />}
-              />
-              <Route
-                path="/user/:id"
-                render={rp => <User {...rp} />}
-              />
-            </Switch>
-          </div>
+          <HistoryContext.Provider value={historyValue}>
+            <div className="app">
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={rp => <Login {...rp} />}
+                />
+                <Route
+                  path="/signup"
+                  render={rp => <Signup {...rp} />}
+                />
+                <Route
+                  path="/home"
+                  render={rp => <Home {...rp} />}
+                />
+                <Route
+                  path="/message/:friendId"
+                  render={rp => <MessageFriend {...rp} />}
+                />
+                <Route
+                  path="/room/:roomId"
+                  render={rp => <Room socket={socket}{...rp} />}
+                />
+                <Route
+                  path="/user/:id"
+                  render={rp => <User {...rp} />}
+                />
+              </Switch>
+            </div>
+          </HistoryContext.Provider>
         </UrlContext.Provider>
       </SocketContext.Provider>
     </UserContext.Provider>

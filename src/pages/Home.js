@@ -4,7 +4,8 @@ import { Route, Switch } from 'react-router-dom'
 import {
     UrlContext,
     UserContext,
-    SocketContext
+    SocketContext,
+    HistoryContext
 } from '../context'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -16,18 +17,21 @@ import '../styles/Home.css'
 const Home = props => {
 
     const token = JSON.parse(window.localStorage.getItem('token'))
-    const { url } = useContext(UrlContext)
+
     const { user, setUser } = useContext(UserContext)
     const { socket } = useContext(SocketContext)
+    const { url } = useContext(UrlContext)
+    const { setHistory } = useContext(HistoryContext)
 
     useEffect(() => {
         if (!user) {
             props.history.push('/')
+        } else {
+            setHistory(props.history)
         }
     }, [props, user])
 
     socket.on('refresh', async () => {
-        console.log('refresh')
         const response = await fetch(`${url}/users/${user.id}`, {
             method: 'get',
             headers: { Authorization: `Bearer ${token}`}
@@ -38,7 +42,7 @@ const Home = props => {
 
     return (
         <>
-            <Header history={props.history}/>
+            <Header />
             <div id="home">
                 <Switch>
                     <Route 

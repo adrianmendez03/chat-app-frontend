@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-const Backpage = props => {
-    console.log(props)
-    const { location } = props
-    return <Link to={location} className="arrow"><i className="fas fa-arrow-left"></i></Link>
+import { HistoryContext } from '../context'
+
+const Backpage = () => {
+
+    const { history } = useContext(HistoryContext)
+
+    return <div onClick={() => history.goBack()} className="arrow"><i className="fas fa-arrow-left"></i></div>
+
 }
 
 export default Backpage

@@ -6,7 +6,6 @@ import '../styles/Header.css'
 
 const Header = props => {
 
-    console.log(props)
     const { user } = useContext(UserContext)
 
     return (

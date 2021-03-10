@@ -10,9 +10,12 @@ import '../styles/Search.css'
 const Search = props => {
 
     const token = JSON.parse(window.localStorage.getItem('token'))
+    
     const searchBar = useRef(null)
+
     const { url } = useContext(UrlContext)
     const { user } = useContext(UserContext)
+
     const [searchVal, setSearchVal] = useState('')
     const [results, setResults] = useState([])
 

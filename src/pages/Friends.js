@@ -69,7 +69,7 @@ const Friends = props => {
     const renderFriends = () => {
         const { friends } = user
         return friendIds.map(friendId => {
-            return <Friend privateRooms={privateRooms} friend={friends[friendId]} history={props.history} key={friendId} />
+            return <Friend privateRooms={privateRooms} friend={friends[friendId]} key={friendId} />
         })
     }
 

@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import {
     UserContext,
     SocketContext,
-    UrlContext
+    UrlContext,
+    HistoryContext
 } from '../context'
 import ProfileIcon from '../components/ProfileIcon'
 import Backpage from '../components/Backpage'
@@ -11,12 +12,14 @@ import '../styles/User.css'
 
 const User = props => {
 
-    const { history } = props
     const { id } = props.match.params
     const token = JSON.parse(window.localStorage.getItem('token'))
+
     const { socket, setSocket } = useContext(SocketContext)
     const { user, setUser } = useContext(UserContext)
     const { url } = useContext(UrlContext)
+    const { history } = useContext(HistoryContext)
+
     const [userToDisplay, setUserToDisplay] = useState(null)
 
     useEffect(() => {
