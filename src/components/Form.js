@@ -31,7 +31,8 @@ const Form = props => {
         return Object.keys(formVals).map((objKey, index) => {
             if (objKey === 'password') {
                 return (
-                    <input 
+                    <input
+                        className="text-input" 
                         key={index}
                         placeholder={createPlaceholder(objKey)}
                         type="password" 
@@ -43,6 +44,7 @@ const Form = props => {
             } else {
                 return (
                     <input 
+                        className="text-input"
                         key={index}
                         placeholder={createPlaceholder(objKey)}
                         type="text" 

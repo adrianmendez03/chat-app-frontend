@@ -7,6 +7,7 @@ import {
 } from '../context'
 import ChatBar from '../components/ChatBar'
 import ChatNav from '../components/ChatNav'
+import Loading from '../components/Loading'
 
 const MessageFriend = props => {
 
@@ -40,7 +41,7 @@ const MessageFriend = props => {
         props.history.push(`/room/${data.id}`)
     }
 
-    const loading = () => <h2>Loading</h2>
+    const loading = () => <Loading />
     const loaded = () => {
         return (
             <>
