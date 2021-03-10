@@ -10,7 +10,6 @@ const ChatNav = props => {
         <div className="nav">
             <Backpage location={'/home'} />
             { name }
-            <i className="fas fa-info"></i>
         </div>
     )
 

@@ -8,6 +8,7 @@ import {
 } from '../context'
 import ProfileIcon from '../components/ProfileIcon'
 import Backpage from '../components/Backpage'
+import Loading from '../components/Loading'
 import '../styles/User.css'
 
 const User = props => {
@@ -44,7 +45,7 @@ const User = props => {
         history.push('/')
     }
 
-    const loading = () => <h2>Loading...</h2>
+    const loading = () => <Loading />
     const loaded = () => {
 
         const { username } = userToDisplay
@@ -62,7 +63,7 @@ const User = props => {
                             Dark Mode
                         </div>
                     </div>
-                    <div className="option">
+                    <div className="option" onClick={() => history.push('/home/friends')}>
                         <div className="icon">
                         </div>
                         <div className="content">

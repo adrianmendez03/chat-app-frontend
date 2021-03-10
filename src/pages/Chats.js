@@ -19,7 +19,7 @@ const Chats = props => {
 
     return (
         <div className="page">
-            <Link to="/home/search"><input className="searchbar" type="text" placeholder="Search by username"/></Link>
+            <Link to="/home/search"><input className="text-input" type="text" placeholder="Search by username"/></Link>
             {renderChats()}
         </div>
     )

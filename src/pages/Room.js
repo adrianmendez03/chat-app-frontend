@@ -8,6 +8,7 @@ import {
 import Message from '../components/Message'
 import ChatBar from '../components/ChatBar'
 import ChatNav from '../components/ChatNav'
+import Loading from '../components/Loading'
 import '../styles/Room.css'
 
 const createBorderRadius = (room, sender, index) => {
@@ -117,7 +118,7 @@ const Room = props => {
         })
     }
 
-    const loading = () => <h2>Loading</h2>
+    const loading = () => <Loading />
     const loaded = () => {
         return (
             <>

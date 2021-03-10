@@ -33,7 +33,6 @@ const Friends = props => {
     })
 
     const handleClick = current => {
-        console.log('triggered')
         if (current !== 'friends') {
             setStyles({
                 friends: stylesObj.notSelected,
@@ -74,7 +73,7 @@ const Friends = props => {
     }
 
     return (
-        <div id="friends">
+        <div className="page" id="friends">
             <div className="navigation">
                 <div 
                     className="select"
