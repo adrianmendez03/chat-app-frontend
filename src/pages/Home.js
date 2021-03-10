@@ -1,15 +1,17 @@
 import React, { useContext, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import '../styles/Home.css'
-import UrlContext from '../context/UrlContext'
-import UserContext from '../context/UserContext'
-import SocketContext from '../context/SocketContext'
+import {
+    UrlContext,
+    UserContext,
+    SocketContext
+} from '../context'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Search from './Search'
 import Chats from './Chats'
 import Friends from './Friends'
+import '../styles/Home.css'
 
 const Home = props => {
 

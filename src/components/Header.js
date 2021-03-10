@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
+import { UserContext } from '../context'
 import '../styles/Header.css'
-import UserContext from '../context/UserContext'
 
 const Header = props => {
 
+    console.log(props)
     const { user } = useContext(UserContext)
 
     return (

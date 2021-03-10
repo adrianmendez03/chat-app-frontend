@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 
-import UserContext from '../context/UserContext'
+import { UserContext } from '../context'
 import Request from '../components/Request'
 import Friend from '../components/Friend'
 import '../styles/Friends.css'

@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
 
-import UserContext from './context/UserContext'
-import SocketContext from './context/SocketContext'
-import UrlContext from './context/UrlContext'
+import { 
+  UserContext,
+  SocketContext,
+  UrlContext,
+  HistoryContext
+} from './context'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'

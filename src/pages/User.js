@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import UserContext from '../context/UserContext'
-import UrlContext from '../context/UrlContext'
-import SocketContext from '../context/SocketContext'
+import {
+    UserContext,
+    SocketContext,
+    UrlContext
+} from '../context'
 import ProfileIcon from '../components/ProfileIcon'
 import Backpage from '../components/Backpage'
 import '../styles/User.css'

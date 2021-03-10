@@ -1,8 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 
-import UrlContext from '../context/UrlContext'
-import UserContext from '../context/UserContext'
-import SocketContext from '../context/SocketContext'
+import {
+    UserContext,
+    SocketContext,
+    UrlContext
+} from '../context'
 import Message from '../components/Message'
 import ChatBar from '../components/ChatBar'
 import ChatNav from '../components/ChatNav'
@@ -62,8 +64,6 @@ const Room = props => {
     const [room, setRoom] = useState(null)
     const [messages, setMessages] = useState(null)
 
-    console.log('refresh')
-
     socket.on('newMessage', () => {
         console.log('new message')
         // fetchRoom()
@@ -81,10 +81,8 @@ const Room = props => {
     }, [])
 
     useEffect(() => {
-
         fetchRoom()
         socket.emit('joinRoom', roomId)
-
         return () => {
             socket.emit('leaveRoom', roomId)
             setRoom(null)

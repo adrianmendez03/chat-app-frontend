@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react'
 
-import UrlContext from '../context/UrlContext'
-import UserContext from '../context/UserContext'
-import SocketContext from '../context/SocketContext'
+import {
+    UserContext,
+    SocketContext,
+    UrlContext
+} from '../context'
 import ChatBar from '../components/ChatBar'
 import ChatNav from '../components/ChatNav'
 

@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
-import UserContext from '../context/UserContext'
-import UrlContext from '../context/UrlContext'
+import {
+    UserContext,
+    UrlContext
+} from '../context'
 import Result from '../components/Result'
 import '../styles/Search.css'
 

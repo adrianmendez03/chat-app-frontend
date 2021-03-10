@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import io from 'socket.io-client'
 
-import '../styles/Login.css'
-import SocketContext from '../context/SocketContext'
-import UserContext from '../context/UserContext'
-import UrlContext from '../context/UrlContext'
+import {
+    UrlContext,
+    UserContext,
+    SocketContext
+} from '../context'
 import Form from '../components/Form'
+import '../styles/Login.css'
 
 const Login = props => {
 

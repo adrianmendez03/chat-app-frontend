@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Signup.css'
 
-import UrlContext from '../context/UrlContext'
+import { UrlContext } from '../context'
 import Form from '../components/Form'
 
 const Signup = props => {

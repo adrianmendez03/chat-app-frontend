@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 
-import UrlContext from '../context/UrlContext'
-import UserContext from '../context/UserContext'
-import SocketContext from '../context/SocketContext'
+import {
+    UserContext,
+    SocketContext,
+    UrlContext
+} from '../context'
 import ProfileIcon from './ProfileIcon'
 import Action from './Action'
 import '../styles/Request.css'
