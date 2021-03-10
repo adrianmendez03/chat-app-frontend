@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
 import {
     UserContext,
@@ -57,12 +57,16 @@ const createBorderRadius = (room, sender, index) => {
 const Room = props => {
 
     const { roomId } = props.match.params
+    const token = JSON.parse(window.localStorage.getItem('token'))
+
     const { user } = useContext(UserContext)
     const { url } = useContext(UrlContext)
     const { socket } = useContext(SocketContext)
-    const token = JSON.parse(window.localStorage.getItem('token'))
+
     const [room, setRoom] = useState(null)
     const [messages, setMessages] = useState(null)
+
+    const bottom = useRef(null)
 
     socket.on('newMessage', () => {
         console.log('new message')
@@ -78,7 +82,11 @@ const Room = props => {
         console.log(data)
         setRoom(data)
         setMessages(data.messages)
+        if (bottom.current) {
+            bottom.current.scrollIntoView({ behavior: 'smooth'})
+        }
     }, [])
+
 
     useEffect(() => {
         fetchRoom()
@@ -117,6 +125,7 @@ const Room = props => {
                 <div id="room" className="page">
                     <div className="messages">
                         {renderMessages()}
+                        <div ref={bottom}/>
                     </div>
                 </div>
                 <ChatBar handleSend={handleSend}/>

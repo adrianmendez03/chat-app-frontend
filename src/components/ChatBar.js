@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import '../styles/ChatBar.css'
+
 const ChatBar = props => {
 
     const { handleSend } = props
@@ -10,10 +12,20 @@ const ChatBar = props => {
         setMessage(e.target.value)
     }
 
+    const renderSendButton = () => {
+        return message.length > 0 ? (
+            <button onClick={() => handleSend(message)}>send</button>
+        ) : (
+            <button></button>
+        )
+    }
+
     return (
         <div className="footer">
-            <input type="text" value={message} onChange={handleChange}/>
-            <button onClick={() => handleSend(message)}><i className="fas fa-share"></i></button>
+            <div className="chatbar-container">
+                <input className="text-input" placeholder="Send a message" type="text" value={message} onChange={handleChange}/>
+                {renderSendButton()}
+            </div>
         </div>
     )
 }

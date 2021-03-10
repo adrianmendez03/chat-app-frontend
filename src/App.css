@@ -29,3 +29,12 @@ html {
     width: 100%;
     font-size: 20px;
 }
+
+.text-input {
+    border-radius: 25px;
+    font-size: 16px;
+    padding: 6px 10px;
+    outline: none;
+    background: rgb(231, 231, 231);
+    border: none;
+}

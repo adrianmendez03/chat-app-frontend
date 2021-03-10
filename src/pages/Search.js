@@ -10,7 +10,7 @@ import '../styles/Search.css'
 const Search = props => {
 
     const token = JSON.parse(window.localStorage.getItem('token'))
-    
+
     const searchBar = useRef(null)
 
     const { url } = useContext(UrlContext)
@@ -58,7 +58,7 @@ const Search = props => {
 
     return (
         <div id="search" className="page">
-            <input className="searchbar" maxLength="40" ref={searchBar} type="text" placeholder="Search by username" value={searchVal} onChange={handleChange} />
+            <input className="text-input" maxLength="40" ref={searchBar} type="text" placeholder="Search by username" value={searchVal} onChange={handleChange} />
             <span className="label">{renderLabel()}</span>
             <div>
                 {renderResults()}
