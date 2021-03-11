@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import { UserContext } from '../context'
 import Request from '../components/Request'
 import Friend from '../components/Friend'
 import Loading from '../components/Loading'
