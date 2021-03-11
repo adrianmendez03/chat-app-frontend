@@ -18,7 +18,9 @@ html {
 }
 
 .page {
-    padding: 10px
+    padding: 10px;
+    max-width: 600px;
+    margin: auto;
 }
 
 .page .header {

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { UserContext } from '../context'
 import Request from '../components/Request'
 import Friend from '../components/Friend'
+import Loading from '../components/Loading'
 import '../styles/Friends.css'
 
 const Friends = props => {
@@ -72,29 +73,35 @@ const Friends = props => {
         })
     }
 
-    return (
-        <div className="page" id="friends">
-            <div className="navigation">
-                <div 
-                    className="select"
-                    onClick={() => handleClick('friends')} 
-                    style={styles.friends}
-                >
-                    FRIENDS {renderCount(friendIds.length)}
+    const loading = () => <Loading />
+    const loaded = () => {
+        return (
+            <div className="page" id="friends">
+                <div className="navigation">
+                    <div 
+                        className="select"
+                        onClick={() => handleClick('friends')} 
+                        style={styles.friends}
+                    >
+                        FRIENDS {renderCount(friendIds.length)}
+                    </div>
+                    <div 
+                        className="select" 
+                        onClick={() => handleClick('requests')} 
+                        style={styles.requests}
+                    >
+                        REQUESTS {renderCount(requestIds.length)}
+                    </div>
                 </div>
-                <div 
-                    className="select" 
-                    onClick={() => handleClick('requests')} 
-                    style={styles.requests}
-                >
-                    REQUESTS {renderCount(requestIds.length)}
+                <div className="container">
+                    { selected === 'friends' ? renderFriends() : renderRequests() }
                 </div>
             </div>
-            <div className="container">
-                { selected === 'friends' ? renderFriends() : renderRequests() }
-            </div>
-        </div>
-    )
+        )
+    }
+
+    return user ? loaded() : loading()
+
 }
 
 export default Friends
