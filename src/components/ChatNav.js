@@ -1,23 +1,30 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Backpage from './Backpage'
 import ProfileIcon from './ProfileIcon'
+import Loading from './Loading'
 
 const ChatNav = props => {
 
-    const { name } = props
+    const { friend } = props
 
-    return (
-        <>
-            <div id="chatnav" className="nav">
-                <Backpage location={'/home'} />
-                <div className="profile-container">
-                    <ProfileIcon username={name}/>
-                    {name}
+    const loading = () => <Loading />
+    const loaded = () => {
+        return (
+            <>
+                <div id="chatnav" className="nav">
+                    <Backpage location={'/home'} />
+                    <Link to={`/user/${friend.id}`} className="profile-container">
+                        <ProfileIcon username={friend.username}/>
+                        {friend.username}
+                    </Link>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    }
+
+    return friend ? loaded() : loading()
 
 }
 

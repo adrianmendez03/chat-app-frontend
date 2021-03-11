@@ -45,7 +45,7 @@ const MessageFriend = props => {
     const loaded = () => {
         return (
             <>
-                <ChatNav name={friend.username}/>
+                <ChatNav friend={friend}/>
                 <div id="room" className="page"></div>
                 <ChatBar handleSend={handleSend}/>
             </>

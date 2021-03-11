@@ -27,21 +27,22 @@ const Room = props => {
         fetchRoom()
     }, [roomId, url])
 
-    const fetchRoomName = () => {
-        let username = ''
+    const fetchFriend = () => {
+        let friend
         room.users.forEach(userInRoom => {
             if (userInRoom.username !== user.username) {
-                username = userInRoom.username
+                friend = userInRoom
             }
         });
-        return username
+        return friend
     }
 
     const loading = () => <Loading />
     const loaded = () => {
+        const friend = fetchFriend()
         return (
             <>
-                <ChatNav name={fetchRoomName()}/>
+                <ChatNav friend={friend}/>
                 <div id="room" className="page">
                     <RoomChat roomId={roomId} messages={room.messages}/>
                 </div>

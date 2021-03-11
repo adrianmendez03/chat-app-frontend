@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import { UrlContext } from '../context'
+import { UrlContext, UserContext } from '../context'
 import Loading from '../components/Loading'
 import Backpage from '../components/Backpage'
 import ProfileIcon from '../components/ProfileIcon'
@@ -8,8 +9,11 @@ import ProfileIcon from '../components/ProfileIcon'
 const User = props => {
 
 
-    const [userToDisplay, setUserToDisplay] = useState(null)
+    const [friend, setFriend] = useState(null)
     const { url } = useContext(UrlContext)
+    const { user } = useContext(UserContext)
+    const roomIds = Object.keys(user.rooms)
+    let privateRoomId = null
 
     useEffect(() => {
         const { id } = props.match.params
@@ -22,26 +26,61 @@ const User = props => {
                 }
             })
             const data = await response.json()
-            setUserToDisplay(data)
+            setFriend(data)
         }
         fetchUser()
     }, [props.match.params, url])
 
+    if (friend) {
+        const doesPrivateRoomExistBetweenUserAndFriend = () => {
+            roomIds.forEach(roomId => {
+                user.rooms[roomId].users.forEach(userInRoom => {
+                    console.log(roomId, userInRoom.id, friend.id)
+                    if (userInRoom.id === friend.id) {
+                        privateRoomId = roomId
+                    }
+                })
+            })
+        }
+    
+        doesPrivateRoomExistBetweenUserAndFriend()
+    }
+
+    const generateCorrectLink = () => {
+        return privateRoomId ? `/room/${privateRoomId}` : `/message/${friend.id}`
+    }
+
     const loading = () => <Loading />
     const loaded = () => {
 
-        const { username } = userToDisplay
+        const { username } = friend
 
         return (
             <div id="user" className="page">
                 <Backpage location={'/home'} />
                 <ProfileIcon username={username}/>
                 <div className="username">{username}</div>
+                <div className="container">
+                    <Link to={generateCorrectLink()} className="option">
+                            <div className="icon">
+                            </div>
+                            <div className="content">
+                                Message
+                            </div>
+                    </Link>
+                    <div className="option">
+                        <div className="icon">
+                        </div>
+                        <div className="content">
+                            Remove Friend
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
 
-    return userToDisplay ? loaded() : loading()
+    return friend ? loaded() : loading()
 }
 
 export default User 
