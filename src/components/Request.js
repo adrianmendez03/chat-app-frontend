@@ -54,8 +54,8 @@ const Request = props => {
     const renderActions = () => {
         return response === 'received' ? (
             <>
-                <Action type="accept" handleClick={handleAccept} background={{ background: 'rgba(0, 0, 255, 0.5)' }}/>
-                <Action type="decline" handleClick={handleDecline} background={{ background: 'rgba(255, 0, 0, 0.5)' }}/>
+                <Action type="accept" handleClick={handleAccept} background={{ background: 'cornflowerblue' }}/>
+                <Action type="decline" handleClick={handleDecline} background={{ background: 'rgba(255, 0, 0, 0.8)' }}/>
             </>
         ) : (
             <Action type="unsend" handleClick={handleUnsend} background={{ background: 'rgba(255, 0, 255, 0.5)' }}/>

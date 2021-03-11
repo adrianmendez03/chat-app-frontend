@@ -24,17 +24,28 @@ const Home = props => {
     const { url } = useContext(UrlContext)
     const { setHistory, history } = useContext(HistoryContext)
 
+    const createObjectFromArray = arr => {
+        const obj = {}
+        arr.forEach(elem => {
+            obj[elem.id] = elem
+        })
+        return obj
+    }
+
     useEffect(() => {
         if (!user || !socket) {
             props.history.push('/')
         } else {
             setHistory(props.history)
             socket.on('refresh', async () => {
-                const response = await fetch(`${url}/users/${user.id}`, {
+                const response = await fetch(`${url}/users/${user.id}/refresh`, {
                     method: 'get',
                     headers: { Authorization: `Bearer ${token}`}
                 })
                 const data = await response.json()
+                data.friends = await createObjectFromArray(data.friends)
+                data.requests = await createObjectFromArray(data.requests)
+                data.rooms = await createObjectFromArray(data.rooms)
                 setUser(data)
             })
         }
@@ -58,7 +69,7 @@ const Home = props => {
                             />
                             <Route 
                                 path="/home/friends"
-                                render={rp => <Friends {...rp}/>}
+                                render={rp => <Friends user={user} {...rp}/>}
                             />
                         </Switch>
                     </div>
