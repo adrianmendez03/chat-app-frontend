@@ -25,21 +25,20 @@ const Home = props => {
     const { setHistory, history } = useContext(HistoryContext)
 
     useEffect(() => {
-        if (!user) {
+        if (!user || !socket) {
             props.history.push('/')
         } else {
             setHistory(props.history)
+            socket.on('refresh', async () => {
+                const response = await fetch(`${url}/users/${user.id}`, {
+                    method: 'get',
+                    headers: { Authorization: `Bearer ${token}`}
+                })
+                const data = await response.json()
+                setUser(data)
+            })
         }
     }, [props, user])
-
-    socket.on('refresh', async () => {
-        const response = await fetch(`${url}/users/${user.id}`, {
-            method: 'get',
-            headers: { Authorization: `Bearer ${token}`}
-        })
-        const data = await response.json()
-        setUser(data)
-    })
 
     const loading = () => <Loading />
     const loaded = () => {

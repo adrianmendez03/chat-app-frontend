@@ -13,11 +13,9 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Room from './pages/Room'
 import MessageFriend from './pages/MessageFriend'
-import User from './pages/User'
+import Account from './pages/Account'
 
 function App() {
-
-  // console.log('refrresh app')
 
   const refreshUser = async (id) => {
     const token = JSON.parse(window.localStorage.getItem('token'))
@@ -65,8 +63,12 @@ function App() {
                   render={rp => <Room socket={socket}{...rp} />}
                 />
                 <Route
+                  path="/account"
+                  render={rp => <Account {...rp} />}
+                />
+                <Route
                   path="/user/:id"
-                  render={rp => <User {...rp} />}
+                  render={rp => <Account {...rp} />}
                 />
               </Switch>
             </div>

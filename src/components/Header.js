@@ -21,7 +21,7 @@ const Header = props => {
 
     return (
         <div className="nav">
-            <Link to={`/user/${user.id}`} className="profile">
+            <Link to="/account" className="profile">
                 { user.username[0] }
             </Link>
             <div id="page-title">{ history ? renderPageTitle() : null }</div>

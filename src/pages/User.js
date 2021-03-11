@@ -1,27 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 
-import {
-    UserContext,
-    SocketContext,
-    UrlContext,
-    HistoryContext
-} from '../context'
-import ProfileIcon from '../components/ProfileIcon'
-import Backpage from '../components/Backpage'
+import { UrlContext } from '../context'
 import Loading from '../components/Loading'
-import '../styles/User.css'
 
 const User = props => {
 
     const { id } = props.match.params
     const token = JSON.parse(window.localStorage.getItem('token'))
-
-    const { socket, setSocket } = useContext(SocketContext)
-    const { user, setUser } = useContext(UserContext)
-    const { url } = useContext(UrlContext)
-    const { history } = useContext(HistoryContext)
-
     const [userToDisplay, setUserToDisplay] = useState(null)
+    const { url } = useContext(UrlContext)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -37,14 +24,6 @@ const User = props => {
         fetchUser()
     }, [])
 
-    const handleLogout = () => {
-        window.localStorage.removeItem('token')
-        setUser(null)
-        socket.disconnect()
-        setSocket(null)
-        history.push('/')
-    }
-
     const loading = () => <Loading />
     const loaded = () => {
 
@@ -55,46 +34,6 @@ const User = props => {
                 <Backpage location={'/home'} />
                 <ProfileIcon username={username}/>
                 <div className="username">{username}</div>
-                <div className="container">
-                    <div className="option">
-                        <div className="icon">
-                        </div>
-                        <div className="content">
-                            Dark Mode
-                        </div>
-                    </div>
-                    <div className="option" onClick={() => history.push('/home/friends')}>
-                        <div className="icon">
-                        </div>
-                        <div className="content">
-                            Message Requests
-                        </div>
-                    </div>
-                </div>
-                <div className="container">
-                    <div className="title">Account</div>
-                    <div className="option">
-                        <div className="icon">
-                        </div>
-                        <div className="content">
-                            Username
-                        </div>
-                    </div>
-                    <div className="option" onClick={handleLogout}>
-                        <div className="icon">
-                        </div>
-                        <div className="content">
-                            Logout
-                        </div>
-                    </div>
-                    <div className="option">
-                        <div className="icon">
-                        </div>
-                        <div className="content">
-                            Delete
-                        </div>
-                    </div>
-                </div>
             </div>
         )
     }
@@ -102,4 +41,4 @@ const User = props => {
     return userToDisplay ? loaded() : loading()
 }
 
-export default User
+export default User 
