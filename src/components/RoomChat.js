@@ -5,9 +5,12 @@ import { UserContext, UrlContext } from '../context'
 import Message from './Message'
 import ChatBar from './ChatBar'
 
-const createBorderRadius = (messages, sender, index) => {
+const createMessageStylings = (messages, sender, index) => {
 
     let borderRadius = ''
+    let profileDisplay = 'none'
+    let nameDisplay = 'none'
+    let marginTop = ''
     const prevMessage = messages[index - 1]
     const nextMessage = messages[index + 1]
 
@@ -35,18 +38,28 @@ const createBorderRadius = (messages, sender, index) => {
         const prevSender = prevMessage.user.username
         const nextSender = nextMessage.user.username
         if (sender === prevSender && sender !== nextSender) {
+            profileDisplay = 'flex'
             borderRadius = '5px 25px 25px 25px'
         } else if (sender !== prevSender && sender === nextSender) {
+            marginTop = '10px'
+            nameDisplay = 'flex'
             borderRadius = '25px 25px 25px 5px'
-        } else {
+        } else if (sender === prevSender && sender === nextSender) {
             borderRadius = '5px 25px 25px 5px'
+        } else {
+            marginTop = '10px'
+            profileDisplay = 'flex'
+            nameDisplay = 'flex'
+            borderRadius = '25px 25px 25px 25px'
         } 
     }
     // Case: Neither messages exist aka only one message in conversation
     else {
+        profileDisplay = 'none'
+        nameDisplay = 'none'
         borderRadius = '25px 25px 25px 25px'
     }
-    return borderRadius
+    return { borderRadius, nameDisplay, profileDisplay, marginTop }
 }
 
 const RoomChat = props => {
@@ -74,8 +87,8 @@ const RoomChat = props => {
 
     const renderMessages = () => {
         return messages.map((message, index) => {
-            const borderRadius = createBorderRadius(messages, message.user.username, index)
-            return <Message message={message} borderRadius={borderRadius} key={index}/>
+            const stylings = createMessageStylings(messages, message.user.username, index)
+            return <Message message={message} stylings={stylings} key={index}/>
         })
     }
 
