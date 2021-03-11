@@ -22,8 +22,8 @@
 }
 
 .request .content .actions .action {
-    padding: 4px 8px;
+    padding: 4px 10px;
     margin: 0 3px;
-    border-radius: 5px;
+    border-radius: 25px;
     color: white;
 }
