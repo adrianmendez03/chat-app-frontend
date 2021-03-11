@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { UrlContext } from '../context'
+import { UrlContext, UserContext } from '../context'
 import RoomChat from '../components/RoomChat'
 import ChatNav from '../components/ChatNav'
 import Loading from '../components/Loading'
@@ -10,6 +10,7 @@ const Room = props => {
 
     const { roomId } = props.match.params
 
+    const { user } = useContext(UserContext)
     const { url } = useContext(UrlContext)
     const [room, setRoom] = useState(null)
 
@@ -26,11 +27,21 @@ const Room = props => {
         fetchRoom()
     }, [roomId, url])
 
+    const fetchRoomName = () => {
+        let username = ''
+        room.users.forEach(userInRoom => {
+            if (userInRoom.username !== user.username) {
+                username = userInRoom.username
+            }
+        });
+        return username
+    }
+
     const loading = () => <Loading />
     const loaded = () => {
         return (
             <>
-                <ChatNav name={room.name}/>
+                <ChatNav name={fetchRoomName()}/>
                 <div id="room" className="page">
                     <RoomChat roomId={roomId} messages={room.messages}/>
                 </div>

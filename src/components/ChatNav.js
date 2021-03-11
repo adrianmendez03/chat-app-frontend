@@ -1,16 +1,22 @@
 import React from 'react'
 
-import Backpage from '../components/Backpage'
+import Backpage from './Backpage'
+import ProfileIcon from './ProfileIcon'
 
 const ChatNav = props => {
 
     const { name } = props
 
     return (
-        <div className="nav">
-            <Backpage location={'/home'} />
-            { name }
-        </div>
+        <>
+            <div id="chatnav" className="nav">
+                <Backpage location={'/home'} />
+                <div className="profile-container">
+                    <ProfileIcon username={name}/>
+                    {name}
+                </div>
+            </div>
+        </>
     )
 
 }
