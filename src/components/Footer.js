@@ -16,7 +16,13 @@ const Footer = props => {
 
     useEffect(() => {
         if (pathname) {
-            pathname === '/home' ? setColors({ home: 'cornflowerblue', friends: 'gray' }) : setColors({ home: 'gray', friends: 'cornflowerblue' })
+            if (pathname === '/home') {
+                setColors({ home: 'cornflowerblue', friends: 'gray' }) 
+            } else if (pathname === '/home/friends') {
+                setColors({ home: 'gray', friends: 'cornflowerblue' })
+            } else {
+                setColors({ home: 'gray', friends: 'gray'})
+            }
         }
     }, [pathname])
 
