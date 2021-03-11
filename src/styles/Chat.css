@@ -1,0 +1,31 @@
+.chat {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+.chat .profile {
+    min-height: 39px;
+    min-width: 39px;
+}
+
+.chat .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.chat .content .room-name {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.chat .content .message {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 16px;
+}
