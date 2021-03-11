@@ -83,7 +83,7 @@ const RoomChat = props => {
             bottom.current.scrollIntoView({ behavior: "smooth" })
         }
 		return () => socketRef.current.disconnect()
-	},[messages])
+	},[messages, roomId])
 
     const renderMessages = () => {
         return messages.map((message, index) => {

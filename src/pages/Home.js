@@ -38,7 +38,7 @@ const Home = props => {
                 setUser(data)
             })
         }
-    }, [props, user])
+    })
 
     const loading = () => <Loading />
     const loaded = () => {

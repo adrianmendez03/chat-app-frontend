@@ -1,16 +1,19 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { UrlContext } from '../context'
 import Loading from '../components/Loading'
+import Backpage from '../components/Backpage'
+import ProfileIcon from '../components/ProfileIcon'
 
 const User = props => {
 
-    const { id } = props.match.params
-    const token = JSON.parse(window.localStorage.getItem('token'))
+
     const [userToDisplay, setUserToDisplay] = useState(null)
     const { url } = useContext(UrlContext)
 
     useEffect(() => {
+        const { id } = props.match.params
+        const token = JSON.parse(window.localStorage.getItem('token'))
         const fetchUser = async () => {
             const response = await fetch(`${url}/users/${id}`, {
                 method: 'get',
@@ -22,7 +25,7 @@ const User = props => {
             setUserToDisplay(data)
         }
         fetchUser()
-    }, [])
+    }, [props.match.params, url])
 
     const loading = () => <Loading />
     const loaded = () => {

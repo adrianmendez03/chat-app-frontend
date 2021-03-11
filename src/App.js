@@ -14,6 +14,7 @@ import Home from './pages/Home'
 import Room from './pages/Room'
 import MessageFriend from './pages/MessageFriend'
 import Account from './pages/Account'
+import User from './pages/User'
 
 function App() {
 
@@ -68,7 +69,7 @@ function App() {
                 />
                 <Route
                   path="/user/:id"
-                  render={rp => <Account {...rp} />}
+                  render={rp => <User {...rp} />}
                 />
               </Switch>
             </div>

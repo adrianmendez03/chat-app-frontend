@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { UrlContext } from '../context'
 import RoomChat from '../components/RoomChat'
@@ -9,12 +9,12 @@ import '../styles/Room.css'
 const Room = props => {
 
     const { roomId } = props.match.params
-    const token = JSON.parse(window.localStorage.getItem('token'))
 
     const { url } = useContext(UrlContext)
     const [room, setRoom] = useState(null)
 
     useEffect(() => {
+        const token = JSON.parse(window.localStorage.getItem('token'))
         const fetchRoom = async () => {
             const reponse = await fetch(`${url}/rooms/${roomId}`, {
                 method: 'get',
@@ -24,7 +24,7 @@ const Room = props => {
             setRoom(data)
         }
         fetchRoom()
-    }, [])
+    }, [roomId, url])
 
     const loading = () => <Loading />
     const loaded = () => {
