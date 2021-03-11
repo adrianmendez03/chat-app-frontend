@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { UserContext } from '../context'
 import Request from '../components/Request'
@@ -19,15 +19,14 @@ const Friends = props => {
         }
     }
 
-    const { user } = useContext(UserContext)
-    const friendIds = Object.keys(user.friends)
-    const requestIds = Object.keys(user.requests)
-    const roomIds = Object.keys(user.rooms)
+    const { user } = props
+    let friendIds, requestIds, roomIds
     const [selected, setSelected] = useState('friends')
     const [styles, setStyles] = useState({
         friends: stylesObj.selected,
         requests: stylesObj.notSelected
     })
+
 
     // const privateRooms = roomIds.filter(roomId => {
     //     return user.rooms[roomId].users.length < 2
@@ -75,6 +74,11 @@ const Friends = props => {
 
     const loading = () => <Loading />
     const loaded = () => {
+
+        friendIds = Object.keys(user.friends)
+        requestIds = Object.keys(user.requests)
+        roomIds = Object.keys(user.rooms)
+
         return (
             <div className="page" id="friends">
                 <div className="navigation">
@@ -100,7 +104,7 @@ const Friends = props => {
         )
     }
 
-    return user ? loaded() : loading()
+    return (user.requests && user.friends) ? loaded() : loading()
 
 }
 

@@ -21,7 +21,7 @@ function App() {
 
   const refreshUser = async (id) => {
     const token = JSON.parse(window.localStorage.getItem('token'))
-    const response = await fetch(`https://text-app-backend.herokuapp.com/users/${id}`, {
+    const response = await fetch(`https://text-app-backend.herokuapp.com/users/${id}/refresh`, {
       method: 'get',
       headers: { Authorization: `Bearer ${token}`}
     })
