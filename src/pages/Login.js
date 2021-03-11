@@ -54,7 +54,7 @@ const Login = props => {
 
             await setUser(data.response)
 
-            const socket = await io.connect('http://localhost:4000')
+            const socket = await io.connect('https://socket-io-am.herokuapp.com/')
 
             socket.emit('saveUser', data.response.id)
 

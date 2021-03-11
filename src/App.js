@@ -14,6 +14,7 @@ import Home from './pages/Home'
 import Room from './pages/Room'
 import MessageFriend from './pages/MessageFriend'
 import Account from './pages/Account'
+import Edit from './pages/Edit'
 import User from './pages/User'
 
 function App() {
@@ -64,8 +65,13 @@ function App() {
                   render={rp => <Room socket={socket}{...rp} />}
                 />
                 <Route
+                  exact
                   path="/account"
                   render={rp => <Account {...rp} />}
+                />
+                <Route
+                  path="/account/edit"
+                  render={rp => <Edit {...rp} />}
                 />
                 <Route
                   path="/user/:id"

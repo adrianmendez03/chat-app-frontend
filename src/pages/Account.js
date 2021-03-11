@@ -1,4 +1,5 @@
 import React, { useContext} from 'react'
+import { Link } from 'react-router-dom'
 
 import {
     UserContext,
@@ -15,6 +16,7 @@ const Account = props => {
     const { socket, setSocket } = useContext(SocketContext)
     const { user, setUser } = useContext(UserContext)
     const { history } = useContext(HistoryContext)
+    const requests = Object.keys(user.requests)
 
     const handleLogout = () => {
         window.localStorage.removeItem('token')
@@ -37,6 +39,7 @@ const Account = props => {
                 <div className="container">
                     <div className="option">
                         <div className="icon">
+                            <i className="fas fa-moon"></i>
                         </div>
                         <div className="content">
                             Dark Mode
@@ -44,6 +47,7 @@ const Account = props => {
                     </div>
                     <div className="option" onClick={() => history.push('/home/friends')}>
                         <div className="icon">
+                            {requests.length}
                         </div>
                         <div className="content">
                             Message Requests
@@ -54,13 +58,15 @@ const Account = props => {
                     <div className="title">Account</div>
                     <div className="option">
                         <div className="icon">
+                            <i className="fas fa-user-edit"></i>
                         </div>
-                        <div className="content">
-                            Username
-                        </div>
+                        <Link to="/account/edit" className="content">
+                            Edit
+                        </Link>
                     </div>
                     <div className="option" onClick={handleLogout}>
                         <div className="icon">
+                            <i className="fas fa-sign-out-alt"></i>
                         </div>
                         <div className="content">
                             Logout
@@ -68,6 +74,7 @@ const Account = props => {
                     </div>
                     <div className="option">
                         <div className="icon">
+                            <i className="fas fa-trash-alt"></i>
                         </div>
                         <div className="content">
                             Delete

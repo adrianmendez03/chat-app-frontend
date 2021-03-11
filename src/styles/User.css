@@ -6,6 +6,7 @@
     width: 100px;
     height: 100px;
     margin: 15px auto 15px auto;
+    font-size: 50px;
 }
 
 #user .username {
@@ -31,10 +32,15 @@
 }
 
 #user .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-width: 40px;
     min-height: 40px;
     border-radius: 50%;
     background: lightblue;
+    color: white;
+    font-weight: bold;
 }
 
 #user .content {

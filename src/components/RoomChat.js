@@ -73,7 +73,7 @@ const RoomChat = props => {
     const bottom = useRef()
 
 	useEffect(() => {
-		socketRef.current = io.connect("http://localhost:4000")
+		socketRef.current = io.connect('https://socket-io-am.herokuapp.com/')
         socketRef.current.emit('joinRoom', roomId)
 		socketRef.current.on("message", (message) => {
             setMessages([...messages, message])

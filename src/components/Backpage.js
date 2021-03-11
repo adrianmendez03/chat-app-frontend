@@ -6,7 +6,7 @@ const Backpage = () => {
 
     const { history } = useContext(HistoryContext)
 
-    return <div onClick={() => history.goBack()} className="arrow"><i className="fas fa-arrow-left"></i></div>
+    return <div className="arrow"><i onClick={() => history.goBack()} className="fas fa-arrow-left"></i></div>
 
 }
 
