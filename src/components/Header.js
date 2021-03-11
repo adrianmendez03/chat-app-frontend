@@ -10,7 +10,13 @@ const Header = props => {
     const { history } = useContext(HistoryContext)
 
     const renderPageTitle = () => {
-        return history.location.pathname === '/home' ? 'Chats' : 'Friends'
+        if (history.location.pathname === '/home') {
+            return 'Chats'
+        } else if (history.location.pathname === 'home/friends') {
+            return 'Friends'
+        } else {
+            return 'Search'
+        }
     }
 
     return (

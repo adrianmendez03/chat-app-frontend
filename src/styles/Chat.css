@@ -6,8 +6,8 @@
 }
 
 .chat .profile {
-    height: 39px;
-    width: 39px;
+    min-height: 39px;
+    min-width: 39px;
 }
 
 .chat .content {
