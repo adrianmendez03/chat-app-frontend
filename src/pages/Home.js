@@ -12,18 +12,17 @@ import Footer from '../components/Footer'
 import Search from './Search'
 import Chats from './Chats'
 import Friends from './Friends'
+import Loading from '../components/Loading'
 import '../styles/Home.css'
 
 const Home = props => {
-
-    // console.log('refresh home')
 
     const token = JSON.parse(window.localStorage.getItem('token'))
 
     const { user, setUser } = useContext(UserContext)
     const { socket } = useContext(SocketContext)
     const { url } = useContext(UrlContext)
-    const { setHistory } = useContext(HistoryContext)
+    const { setHistory, history } = useContext(HistoryContext)
 
     useEffect(() => {
         if (!user) {
@@ -42,29 +41,34 @@ const Home = props => {
         setUser(data)
     })
 
-    return (
-        <>
-            <Header />
-            <div id="home">
-                <Switch>
-                    <Route 
-                        exact
-                        path="/home"
-                        render={rp => <Chats {...rp}/>}
-                    />
-                    <Route 
-                        path="/home/search"
-                        render={rp => <Search {...rp} />}
-                    />
-                    <Route 
-                        path="/home/friends"
-                        render={rp => <Friends {...rp}/>}
-                    />
-                </Switch>
-            </div>
-            <Footer />
-        </>
-    )
+    const loading = () => <Loading />
+    const loaded = () => {
+        return (
+            <>
+                <Header />
+                    <div id="home">
+                        <Switch>
+                            <Route 
+                                exact
+                                path="/home"
+                                render={rp => <Chats {...rp}/>}
+                            />
+                            <Route 
+                                path="/home/search"
+                                render={rp => <Search {...rp} />}
+                            />
+                            <Route 
+                                path="/home/friends"
+                                render={rp => <Friends {...rp}/>}
+                            />
+                        </Switch>
+                    </div>
+                <Footer />
+            </>
+        )
+    }
+
+    return history ? loaded() : loading()
 }
 
 export default Home
