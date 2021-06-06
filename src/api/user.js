@@ -3,6 +3,23 @@ import { createObjectFromArray } from "../utils"
 
 const URL = process.env.REACT_APP_API_URL
 
+export const refreshUser = async (user, setUser) => {
+  const token = JSON.parse(window.localStorage.getItem("token"))
+
+  const response = await fetch(`${URL}/users/${user.id}/refresh`, {
+    method: "get",
+    headers: { Authorization: `Bearer ${token}` },
+  })
+
+  const data = await response.json()
+
+  data.friends = await createObjectFromArray(data.friends)
+  data.requests = await createObjectFromArray(data.requests)
+  data.rooms = await createObjectFromArray(data.rooms)
+
+  setUser(data)
+}
+
 export const handleSignup = async (newUser) => {
   await fetch(URL + "/auth/signup", {
     method: "post",
