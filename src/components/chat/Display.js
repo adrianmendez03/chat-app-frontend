@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef, useContext } from "react"
 // import io from "socket.io-client"
 
-import { sendMessage } from "../api/room"
-import { createMessageStylings } from "../utils"
+import { sendMessage } from "../../api/room"
+import { createMessageStylings } from "../../utils"
 import Message from "./Message"
-import ChatBar from "./ChatBar"
+import ChatBar from "./MessageBar"
 
-const RoomChat = (props) => {
+const Display = (props) => {
   const [messages, setMessages] = useState(props.messages)
   const socketRef = useRef()
   const bottom = useRef()
@@ -46,4 +46,4 @@ const RoomChat = (props) => {
   )
 }
 
-export default RoomChat
+export default Display

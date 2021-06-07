@@ -3,9 +3,9 @@ import { Link } from "react-router-dom"
 
 import { fetchFriend } from "../api/room"
 import { UserContext } from "../context"
-import Loading from "../components/Loading"
-import Backpage from "../components/Backpage"
-import ProfileIcon from "../components/ProfileIcon"
+import Loading from "../components/utils/Loading"
+import Backpage from "../components/utils/Backpage"
+import ProfileIcon from "../components/utils/ProfileIcon"
 
 const User = (props) => {
   const [friend, setFriend] = useState(null)

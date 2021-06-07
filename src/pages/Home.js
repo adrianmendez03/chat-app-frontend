@@ -8,7 +8,7 @@ import Footer from "../components/Footer"
 import Search from "./Search"
 import Chats from "./Chats"
 import Friends from "./Friends"
-import Loading from "../components/Loading"
+import Loading from "../components/utils/Loading"
 import "../styles/Home.css"
 
 const Home = (props) => {

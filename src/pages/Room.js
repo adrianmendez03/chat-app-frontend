@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react"
 
 import { fetchRoom } from "../api/room"
 import { UserContext } from "../context"
-import RoomChat from "../components/RoomChat"
-import ChatNav from "../components/ChatNav"
-import Loading from "../components/Loading"
+import Display from "../components/chat/Display"
+import Header from "../components/chat/Header"
+import Loading from "../components/utils/Loading"
 import "../styles/Room.css"
 
 const Room = (props) => {
@@ -36,9 +36,9 @@ const Room = (props) => {
     const friend = fetchFriend()
     return (
       <>
-        <ChatNav friend={friend} />
+        <Header friend={friend} />
         <div id="room" className="page">
-          <RoomChat roomId={roomId} messages={room.messages} />
+          <Display roomId={roomId} messages={room.messages} />
         </div>
       </>
     )

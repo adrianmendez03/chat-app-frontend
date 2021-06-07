@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 
 import { fetchSearchResults } from "../api/search"
-import Result from "../components/Result"
+import Result from "../components/search/Result"
 import "../styles/Search.css"
 
 const Search = () => {
@@ -15,7 +15,7 @@ const Search = () => {
 
     const makeApiCall = async () => {
       const data = await fetchSearchResults(searchVal)
-      fetchSearchResults(data)
+      setResults(data)
     }
 
     makeApiCall()

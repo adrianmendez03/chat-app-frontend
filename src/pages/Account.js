@@ -2,9 +2,9 @@ import React, { useContext } from "react"
 import { Link, useHistory } from "react-router-dom"
 
 import { UserContext, SocketContext } from "../context"
-import ProfileIcon from "../components/ProfileIcon"
-import Backpage from "../components/Backpage"
-import Loading from "../components/Loading"
+import ProfileIcon from "../components/utils/ProfileIcon"
+import Backpage from "../components/utils/Backpage"
+import Loading from "../components/utils/Loading"
 import "../styles/User.css"
 
 const Account = () => {

@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 
 import { fetchSearchResults } from "../api/search"
-import Backpage from "../components/Backpage"
+import Backpage from "../components/utils/Backpage"
 
 const Edit = () => {
   const [inputVals, setInputVals] = useState({ username: "", file: null })
@@ -16,7 +16,6 @@ const Edit = () => {
         setMessage("Username is available.")
       }
     }
-
     makeApiCall()
   }, [inputVals])
 

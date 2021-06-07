@@ -1,15 +1,10 @@
 import React, { useContext } from "react"
 
-import {
-  handleDecline,
-  handleAccept,
-  handleSend,
-  handleUnsend,
-} from "../api/request"
-import { UserContext } from "../context"
-import ProfileIcon from "./ProfileIcon"
+import { handleDecline, handleAccept, handleUnsend } from "../../api/request"
+import { UserContext } from "../../context"
+import ProfileIcon from "../utils/ProfileIcon"
 import Action from "./Action"
-import "../styles/Result.css"
+import "../../styles/Result.css"
 
 const Result = (props) => {
   let idOfRequest

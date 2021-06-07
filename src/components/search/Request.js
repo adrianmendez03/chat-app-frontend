@@ -1,9 +1,9 @@
 import React from "react"
 
-import { handleAccept, handleDecline, handleUnsend } from "../api/request"
-import ProfileIcon from "./ProfileIcon"
+import { handleAccept, handleDecline, handleUnsend } from "../../api/request"
+import ProfileIcon from "../utils/ProfileIcon"
 import Action from "./Action"
-import "../styles/Request.css"
+import "../../styles/Request.css"
 
 const Request = (props) => {
   const { request } = props

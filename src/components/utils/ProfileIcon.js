@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 
-import { UserContext } from "../context"
-import "../styles/Profile.css"
+import { UserContext } from "../../context"
+import "../../styles/Profile.css"
 
 const ProfileIcon = (props) => {
   const { display } = props
