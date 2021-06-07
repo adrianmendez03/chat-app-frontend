@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useContext } from "react"
 
-import '../styles/Profile.css'
+import { UserContext } from "../context"
+import "../styles/Profile.css"
 
-const ProfileIcon = props => {
+const ProfileIcon = (props) => {
+  const { display } = props
+  const { user } = useContext(UserContext)
 
-    const { username, display } = props
-    
-    return (
-        <div className="profile" style={display}>
-            { username[0] }
-        </div>
-    )
+  return (
+    <div className="profile" style={display}>
+      {user.username[0]}
+    </div>
+  )
 }
 
 export default ProfileIcon
