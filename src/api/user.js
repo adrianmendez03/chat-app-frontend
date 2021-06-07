@@ -1,11 +1,10 @@
-import io from "socket.io-client"
 import jwt_decode from "jwt-decode"
 
 import { createObjectFromArray } from "../utils"
 
 const URL = process.env.REACT_APP_API_URL
 
-export const refreshUser = async (setUser) => {
+export const updateUser = async (setUser) => {
   const token = JSON.parse(window.localStorage.getItem("token"))
   const decoded = jwt_decode(token)
 
@@ -45,6 +44,4 @@ export const handleLogin = async (formVals, setError) => {
   } else {
     setError(data.error)
   }
-
-  return
 }

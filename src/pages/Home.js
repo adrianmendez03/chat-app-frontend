@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react"
-import { Route, Switch, useHistory } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 
-import { refreshUser } from "../api/user"
-import { UserContext, SocketContext } from "../context"
+import { updateUser } from "../api/user"
+import { UserContext } from "../context"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Search from "./Search"
@@ -13,17 +13,15 @@ import "../styles/Home.css"
 
 const Home = (props) => {
   const token = JSON.parse(window.localStorage.getItem("token"))
-  const history = useHistory()
   const { user, setUser } = useContext(UserContext)
-  const { socket } = useContext(SocketContext)
 
   useEffect(() => {
     if (!token) {
       props.history.push("/")
     } else {
-      refreshUser(setUser)
+      updateUser(setUser)
     }
-  })
+  }, [token, props.history, setUser])
 
   const loading = () => <Loading />
   const loaded = () => {
@@ -45,7 +43,7 @@ const Home = (props) => {
     )
   }
 
-  return <div></div>
+  return user ? loaded() : loading()
 }
 
 export default Home

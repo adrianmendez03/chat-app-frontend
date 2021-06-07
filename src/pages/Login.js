@@ -1,15 +1,13 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 
 import { handleLogin } from "../api/user"
-import { UserContext, SocketContext } from "../context"
 import Form from "../components/Form"
 import "../styles/Login.css"
 
 const Login = (props) => {
+  const token = JSON.parse(window.localStorage.getItem("token"))
   const history = useHistory()
-  const { user, setUser } = useContext(UserContext)
-  const { setSocket } = useContext(SocketContext)
   const [error, setError] = useState("")
   const emptyForm = {
     email: "",
@@ -17,10 +15,10 @@ const Login = (props) => {
   }
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       props.history.push("/home")
     }
-  }, [props, user])
+  })
 
   return (
     <div id="login" className="page">
