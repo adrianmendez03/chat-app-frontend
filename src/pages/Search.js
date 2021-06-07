@@ -4,7 +4,7 @@ import { fetchSearchResults } from "../api/search"
 import Result from "../components/Result"
 import "../styles/Search.css"
 
-const Search = (props) => {
+const Search = () => {
   const searchBar = useRef(null)
 
   const [searchVal, setSearchVal] = useState("")
