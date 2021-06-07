@@ -25,14 +25,6 @@ const Search = (props) => {
     })
   }
 
-  const renderLabel = () => {
-    if (searchVal.length === 0) {
-      return null
-    } else {
-      return `Showing results for ${searchVal}`
-    }
-  }
-
   return (
     <div id="search" className="page">
       <input
@@ -44,7 +36,9 @@ const Search = (props) => {
         value={searchVal}
         onChange={handleChange}
       />
-      <span className="label">{renderLabel()}</span>
+      <span className="label">
+        {searchVal.length > 0 && `Showing results for ${searchVal}`}
+      </span>
       <div>{renderResults()}</div>
     </div>
   )
