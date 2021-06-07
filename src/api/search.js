@@ -2,7 +2,7 @@ import jwt_decode from "jwt-decode"
 
 const URL = process.env.REACT_APP_API_URL
 
-export const fetchSearchResults = async (searchVal, setResults) => {
+export const fetchSearchResults = async (searchVal) => {
   const token = JSON.parse(window.localStorage.getItem("token"))
   const decoded = jwt_decode(token)
 
@@ -14,9 +14,11 @@ export const fetchSearchResults = async (searchVal, setResults) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     )
+
     const data = await response.json()
-    setResults(data)
+
+    return data
   } else {
-    setResults([])
+    return []
   }
 }

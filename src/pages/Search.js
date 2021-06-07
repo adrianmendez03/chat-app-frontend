@@ -12,7 +12,13 @@ const Search = () => {
 
   useEffect(() => {
     searchBar.current.focus()
-    fetchSearchResults(searchVal, setResults)
+
+    const makeApiCall = async () => {
+      const data = await fetchSearchResults(searchVal)
+      fetchSearchResults(data)
+    }
+
+    makeApiCall()
   }, [searchVal])
 
   const handleChange = async (e) => {
