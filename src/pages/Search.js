@@ -1,70 +1,53 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from "react"
 
-import {
-    UserContext,
-    UrlContext
-} from '../context'
-import Result from '../components/Result'
-import '../styles/Search.css'
+import { fetchSearchResults } from "../api/search"
+import Result from "../components/Result"
+import "../styles/Search.css"
 
-const Search = props => {
+const Search = (props) => {
+  const searchBar = useRef(null)
 
-    const token = JSON.parse(window.localStorage.getItem('token'))
+  const [searchVal, setSearchVal] = useState("")
+  const [results, setResults] = useState([])
 
-    const searchBar = useRef(null)
+  useEffect(() => {
+    searchBar.current.focus()
+    fetchSearchResults(searchVal, setResults)
+  }, [searchVal])
 
-    const { url } = useContext(UrlContext)
-    const { user } = useContext(UserContext)
+  const handleChange = async (e) => {
+    setSearchVal(e.target.value)
+  }
 
-    const [searchVal, setSearchVal] = useState('')
-    const [results, setResults] = useState([])
+  const renderResults = () => {
+    return results.map((result) => {
+      return <Result {...result} key={result.id} />
+    })
+  }
 
-    useEffect(() => {
-        searchBar.current.focus()
-        const fetchSearchResults = async () => {
-            if (searchVal.length > 0) {
-                const response = await fetch(`${url}/users/${user.id}/search/${searchVal}`, {
-                    method: 'get',
-                    headers: { Authorization: `Bearer ${token}`}
-                })
-                const data = await response.json()
-                setResults(data)
-            } else {
-                setResults([])
-            }
-        }
-
-        fetchSearchResults()
-    }, [searchVal, token, user, url])
-
-
-    const handleChange = async e => {
-        setSearchVal(e.target.value)
+  const renderLabel = () => {
+    if (searchVal.length === 0) {
+      return null
+    } else {
+      return `Showing results for ${searchVal}`
     }
+  }
 
-    const renderResults = () => {
-        return results.map(result => {
-            return <Result {...result} key={result.id}/>
-        })
-    }
-
-    const renderLabel = () => {
-        if (searchVal.length === 0) {
-            return null
-        } else {
-            return `Showing results for ${searchVal}`
-        }
-    }
-
-    return (
-        <div id="search" className="page">
-            <input className="text-input" maxLength="40" ref={searchBar} type="text" placeholder="Search by username" value={searchVal} onChange={handleChange} />
-            <span className="label">{renderLabel()}</span>
-            <div>
-                {renderResults()}
-            </div>
-        </div>
-    )
+  return (
+    <div id="search" className="page">
+      <input
+        className="text-input"
+        maxLength="40"
+        ref={searchBar}
+        type="text"
+        placeholder="Search by username"
+        value={searchVal}
+        onChange={handleChange}
+      />
+      <span className="label">{renderLabel()}</span>
+      <div>{renderResults()}</div>
+    </div>
+  )
 }
 
 export default Search
