@@ -1,17 +1,28 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import "../styles/Signup.css"
 
 import { handleSignup } from "../api/user"
 import Form from "../components/Form"
 
 const Signup = (props) => {
+  const history = useHistory()
   const emptyForm = {
     email: "",
     password: "",
     username: "",
   }
+
   const [errorMessage, setErrorMessage] = useState("")
+
+  const makeApiCall = async (formVals) => {
+    const response = await handleSignup(formVals)
+    if (response.message === "User created.") {
+      history.push("/")
+    } else {
+      setErrorMessage(response.errors[0].message)
+    }
+  }
 
   const validateInputs = (formVals) => {
     setErrorMessage("")
@@ -31,7 +42,7 @@ const Signup = (props) => {
         "Password should be at least 8 characters long and contain a lowercase and uppercase letter, and a number."
       )
     } else {
-      handleSignup(formVals)
+      makeApiCall(formVals)
     }
   }
 

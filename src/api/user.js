@@ -23,11 +23,13 @@ export const updateUser = async (setUser) => {
 }
 
 export const handleSignup = async (newUser) => {
-  await fetch(URL + "/auth/signup", {
+  const response = await fetch(URL + "/auth/signup", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newUser),
   })
+  const data = await response.json()
+  return data
 }
 
 export const handleLogin = async (formVals, setError) => {
