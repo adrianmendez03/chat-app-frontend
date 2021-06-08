@@ -11,7 +11,6 @@ const Account = () => {
   const history = useHistory()
   const { socket, setSocket } = useContext(SocketContext)
   const { user, setUser } = useContext(UserContext)
-  const requests = Object.keys(user.requests)
 
   const handleLogout = () => {
     window.localStorage.removeItem("token")
@@ -38,7 +37,9 @@ const Account = () => {
             <div className="content">Dark Mode</div>
           </div>
           <div className="option" onClick={() => history.push("/home/friends")}>
-            <div className="icon">{requests.length}</div>
+            <div className="icon">
+              {user && Object.keys(user.requests).length}
+            </div>
             <div className="content">Message Requests</div>
           </div>
         </div>
