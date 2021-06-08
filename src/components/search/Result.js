@@ -1,6 +1,11 @@
 import React, { useContext } from "react"
 
-import { handleDecline, handleAccept, handleUnsend } from "../../api/request"
+import {
+  handleDecline,
+  handleAccept,
+  handleUnsend,
+  handleSend,
+} from "../../api/request"
 import { UserContext } from "../../context"
 import ProfileIcon from "../utils/ProfileIcon"
 import Action from "./Action"
@@ -64,7 +69,7 @@ const Result = (props) => {
       return (
         <Action
           type="send friend request"
-          //   handleClick={handleSendRequest}
+          handleClick={() => handleSend(id)}
           background={{ background: "cornflowerblue" }}
         />
       )

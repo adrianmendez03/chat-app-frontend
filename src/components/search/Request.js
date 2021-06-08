@@ -7,26 +7,26 @@ import "../../styles/Request.css"
 
 const Request = (props) => {
   const { request } = props
-  const response = request.User_Requests.response
+  const { response, requestId } = request.User_Requests
 
   const renderActions = () => {
     return response === "received" ? (
       <>
         <Action
           type="accept"
-          handleClick={handleAccept}
+          handleClick={() => handleAccept(requestId)}
           background={{ background: "cornflowerblue" }}
         />
         <Action
           type="decline"
-          handleClick={handleDecline}
+          handleClick={() => handleDecline(requestId)}
           background={{ background: "rgba(255, 0, 0, 0.8)" }}
         />
       </>
     ) : (
       <Action
         type="unsend"
-        handleClick={handleUnsend}
+        handleClick={() => handleUnsend(requestId)}
         background={{ background: "rgba(255, 0, 255, 0.5)" }}
       />
     )

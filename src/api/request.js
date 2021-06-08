@@ -1,6 +1,22 @@
 import jwt_decode from "jwt-decode"
 
-const URL = process.env.REACT_APP_REACT_URL
+const URL = process.env.REACT_APP_API_URL
+
+export const handleSend = async (recipientId) => {
+  const token = JSON.parse(window.localStorage.getItem("token"))
+  const user = jwt_decode(token)
+
+  const response = await fetch(
+    `${URL}/users/${user.id}/request/${recipientId}`,
+    {
+      method: "post",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  )
+  const data = await response.json()
+
+  return data
+}
 
 export const handleUnsend = async (requestId) => {
   const token = JSON.parse(window.localStorage.getItem("token"))
