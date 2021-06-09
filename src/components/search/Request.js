@@ -1,4 +1,5 @@
 import React from "react"
+import { useHistory } from "react-router-dom"
 
 import { handleAccept, handleDecline, handleUnsend } from "../../api/request"
 import ProfileIcon from "../utils/ProfileIcon"
@@ -6,6 +7,7 @@ import Action from "./Action"
 import "../../styles/Request.css"
 
 const Request = (props) => {
+  const history = useHistory()
   const { request } = props
   const { response, requestId } = request.User_Requests
 
@@ -14,7 +16,10 @@ const Request = (props) => {
       <>
         <Action
           type="accept"
-          handleClick={() => handleAccept(requestId)}
+          handleClick={async () => {
+            const response = await handleAccept(requestId, request.id)
+            history.push(`/room/${response.id}`)
+          }}
           background={{ background: "cornflowerblue" }}
         />
         <Action

@@ -18,6 +18,20 @@ export const sendMessage = async (message, roomId) => {
   return data
 }
 
+export const createRoom = async (friendId) => {
+  const token = JSON.parse(window.localStorage.getItem("token"))
+  const user = jwt_decode(token)
+
+  const response = await fetch(`${URL}/rooms/${user.id}/${friendId}`, {
+    method: "post",
+    headers: { Authorization: `Bearer ${token}` },
+  })
+
+  const data = await response.json()
+
+  return data
+}
+
 export const fetchRoom = async (roomId) => {
   const token = JSON.parse(window.localStorage.getItem("token"))
 
