@@ -26,7 +26,6 @@ const Friend = (props) => {
   return privateRoomId ? (
     <Link to={`/room/${privateRoomId}`} className="friend">
       <ProfileIcon username={friend.username} />
-      <div className="content">{friend.username}</div>
     </Link>
   ) : (
     <Link to={`/message/${friend.id}`} className="friend">

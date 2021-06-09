@@ -6,7 +6,7 @@ import Preview from "../components/chat/Preview"
 import FriendsMini from "../components/FriendsMini"
 import Loading from "../components/utils/Loading"
 
-const Chats = (props) => {
+const Chats = () => {
   const { user } = useContext(UserContext)
   let roomIds
   if (user) {
@@ -21,7 +21,6 @@ const Chats = (props) => {
 
   const loading = () => <Loading />
   const loaded = () => {
-    console.log(roomIds)
     return (
       <div className="page">
         <FriendsMini />
