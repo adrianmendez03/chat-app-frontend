@@ -1,32 +1,32 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from "react"
+import { Link, useHistory } from "react-router-dom"
 
-import { UserContext, HistoryContext } from '../context'
-import '../styles/Header.css'
+import { UserContext } from "../context"
+import "../styles/Header.css"
 
-const Header = props => {
+const Header = () => {
+  const history = useHistory()
+  const { user } = useContext(UserContext)
 
-    const { user } = useContext(UserContext)
-    const { history } = useContext(HistoryContext)
-
-    const renderPageTitle = () => {
-        if (history.location.pathname === '/home') {
-            return 'Chats'
-        } else if (history.location.pathname === 'home/friends') {
-            return 'Friends'
-        } else {
-            return 'Search'
-        }
+  const renderPageTitle = () => {
+    switch (history.location.pathname) {
+      case "/home":
+        return "Chats"
+      case "/home/friends":
+        return "Friends"
+      default:
+        return "Search"
     }
+  }
 
-    return (
-        <div className="nav">
-            <Link to="/account" className="profile">
-                { user.username[0] }
-            </Link>
-            <div id="page-title">{ history ? renderPageTitle() : null }</div>
-        </div>
-    )
+  return (
+    <div className="nav">
+      <Link to="/account" className="profile">
+        {user.username[0]}
+      </Link>
+      <div id="page-title">{history ? renderPageTitle() : null}</div>
+    </div>
+  )
 }
 
 export default Header
