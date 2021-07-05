@@ -10,6 +10,9 @@ const ProfileIcon = (props) => {
   return (
     <div className="profile" style={display}>
       {user.username[0]}
+      <div className="online-outer">
+        <div className="online-inner" style={{ background: "red" }}></div>
+      </div>
     </div>
   )
 }

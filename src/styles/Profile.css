@@ -1,5 +1,22 @@
 .profile {
-    /* min-height: 40px;
-    min-width: 40px; */
-    border-radius: 50%;
+  border-radius: 25px;
+  width: 46px;
+  height: 46px;
+  position: relative;
+}
+
+.online-outer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.online-inner {
+  background: red;
+  width: 8px;
+  height: 8px;
+  border-radius: 10px;
 }

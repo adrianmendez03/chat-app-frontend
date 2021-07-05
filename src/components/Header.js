@@ -1,12 +1,11 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Link, useHistory } from "react-router-dom"
 
-import { UserContext } from "../context"
+import ProfileIcon from "./utils/ProfileIcon"
 import "../styles/Header.css"
 
 const Header = () => {
   const history = useHistory()
-  const { user } = useContext(UserContext)
 
   const renderPageTitle = () => {
     switch (history.location.pathname) {
@@ -21,8 +20,8 @@ const Header = () => {
 
   return (
     <div className="nav">
-      <Link to="/account" className="profile">
-        {user.username[0]}
+      <Link to="/account">
+        <ProfileIcon />
       </Link>
       <div id="page-title">{history ? renderPageTitle() : null}</div>
     </div>

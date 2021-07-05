@@ -40,12 +40,6 @@ const FriendsMini = (props) => {
       return (
         <div className="mini" key={friendId}>
           <ProfileIcon roomIds={roomIds} friend={friends[friendId]} />
-          <div className="online-outer">
-            <div
-              className="online-inner"
-              style={{ background: renderColor(friendId) }}
-            ></div>
-          </div>
         </div>
       )
     })
