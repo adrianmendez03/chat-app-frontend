@@ -1,29 +1,5 @@
 .request {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-.request .profile {
-    min-height: 36px;
-    min-width: 36px;
-}
-
-.request .content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 15px;
-    width: 100%;
-}
-
-.request .content .actions {
-    display: flex;
-}
-
-.request .content .actions .action {
-    padding: 4px 10px;
-    margin: 0 3px;
-    border-radius: 25px;
-    color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }

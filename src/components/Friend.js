@@ -1,37 +1,45 @@
-import React, { useContext } from "react"
-import { Link } from "react-router-dom"
+import React, { useContext, useEffect, useState } from "react"
+import { Link, useHistory } from "react-router-dom"
 
 import { UserContext } from "../context"
 import ProfileIcon from "./utils/ProfileIcon"
+import Action from "./search/Action"
 import "../styles/Friend.css"
 
 const Friend = (props) => {
-  const { friend, roomIds } = props
+  const { friend } = props
+  const history = useHistory()
   const { user } = useContext(UserContext)
+  const [roomId, setRoomId] = useState(null)
 
-  let privateRoomId = null
-
-  const doesPrivateRoomExistBetweenUserAndFriend = () => {
-    roomIds.forEach((roomId) => {
-      user.rooms[roomId].users.forEach((userInRoom) => {
-        if (userInRoom.id === friend.id) {
-          privateRoomId = roomId
+  useEffect(() => {
+    for (let room of Object.values(user.rooms)) {
+      for (let member of Object.values(room.users)) {
+        if (member.id === friend.id) {
+          setRoomId(room.id)
         }
-      })
-    })
+      }
+    }
+  }, [])
+
+  const handleSendMessage = () => {
+    history.push(`/room/${roomId}`)
   }
 
-  doesPrivateRoomExistBetweenUserAndFriend()
-
-  return privateRoomId ? (
-    <Link to={`/room/${privateRoomId}`} className="friend">
+  return (
+    <div to={`/room/${roomId}`} className="friend">
       <ProfileIcon username={friend.username} />
-    </Link>
-  ) : (
-    <Link to={`/message/${friend.id}`} className="friend">
-      <ProfileIcon username={friend.username} />
-      <div className="content">{friend.username}</div>
-    </Link>
+      <div className="content">
+        <div className="username">{friend.username}</div>
+        <div className="actions">
+          <Action
+            type="message"
+            handleClick={handleSendMessage}
+            background={{ background: `cornflowerblue` }}
+          />
+        </div>
+      </div>
+    </div>
   )
 }
 
