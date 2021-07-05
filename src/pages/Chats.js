@@ -22,7 +22,7 @@ const Chats = () => {
   const loading = () => <Loading />
   const loaded = () => {
     return (
-      <div className="page">
+      <div id="chats" className="page">
         <FriendsMini />
         <Link to="/home/search">
           <input

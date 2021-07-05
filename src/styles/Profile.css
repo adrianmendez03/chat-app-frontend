@@ -1,8 +1,13 @@
 .profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  min-height: 46px;
   border-radius: 25px;
-  width: 46px;
-  height: 46px;
   position: relative;
+  background: rgb(231, 231, 231);
+  text-transform: capitalize;
 }
 
 .online-outer {
@@ -15,7 +20,6 @@
 }
 
 .online-inner {
-  background: red;
   width: 8px;
   height: 8px;
   border-radius: 10px;

@@ -1,3 +1,11 @@
 #home {
-    margin: 56px 0;
+  margin: 56px 0;
+}
+
+#home .chat:first-child {
+  margin-top: 0;
+}
+
+#chats .text-input {
+  margin: 15px 0;
 }
