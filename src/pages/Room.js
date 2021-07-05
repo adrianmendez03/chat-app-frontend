@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
+import { useHistory } from "react-router-dom"
 
 import { fetchRoom } from "../api/room"
 import { UserContext } from "../context"
@@ -6,29 +7,38 @@ import Display from "../components/chat/Display"
 import Header from "../components/chat/Header"
 import Loading from "../components/utils/Loading"
 import "../styles/Room.css"
+import { updateUser } from "../api/user"
 
 const Room = (props) => {
   const { roomId } = props.match.params
+  const token = JSON.parse(window.localStorage.getItem("token"))
+  const history = useHistory()
 
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const [room, setRoom] = useState(null)
 
   useEffect(() => {
-    const makeApiCall = async () => {
-      const data = await fetchRoom(roomId)
-      setRoom(data)
+    if (!token) {
+      history.push("/")
+    } else {
+      updateUser(setUser)
+
+      const makeApiCall = async () => {
+        const data = await fetchRoom(roomId)
+        setRoom(data)
+      }
+
+      makeApiCall()
     }
-    makeApiCall()
-  }, [roomId])
+  }, [token, history, setUser, roomId])
 
   const fetchFriend = () => {
-    let friend
-    room.users.forEach((userInRoom) => {
-      if (userInRoom.username !== user.username) {
-        friend = userInRoom
+    for (let member of Object.values(room.users)) {
+      console.log(user)
+      if (member.id !== user.id) {
+        return member
       }
-    })
-    return friend
+    }
   }
 
   const loading = () => <Loading />
@@ -44,7 +54,7 @@ const Room = (props) => {
     )
   }
 
-  return room ? loaded() : loading()
+  return room && user ? loaded() : loading()
 }
 
 export default Room

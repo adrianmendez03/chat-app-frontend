@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef, useContext } from "react"
 import { sendMessage } from "../../api/room"
 import { createMessageStylings } from "../../utils"
 import Message from "./Message"
-import ChatBar from "./MessageBar"
+import MessageBar from "./MessageBar"
 
 const Display = (props) => {
   const [messages, setMessages] = useState(props.messages)
@@ -35,13 +35,17 @@ const Display = (props) => {
     })
   }
 
+  const handleSend = (message) => {
+    sendMessage(message, props.roomId)
+  }
+
   return (
     <>
       <div className="messages">
         {renderMessages()}
         <div ref={bottom} />
       </div>
-      <ChatBar handleSend={sendMessage} />
+      <MessageBar handleSend={handleSend} />
     </>
   )
 }

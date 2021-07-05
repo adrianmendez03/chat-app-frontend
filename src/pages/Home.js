@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react"
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, useHistory } from "react-router-dom"
 
 import { updateUser } from "../api/user"
 import { UserContext } from "../context"
@@ -12,16 +12,17 @@ import Loading from "../components/utils/Loading"
 import "../styles/Home.css"
 
 const Home = (props) => {
+  const history = useHistory()
   const token = JSON.parse(window.localStorage.getItem("token"))
   const { user, setUser } = useContext(UserContext)
 
   useEffect(() => {
     if (!token) {
-      props.history.push("/")
+      history.push("/")
     } else {
       updateUser(setUser)
     }
-  }, [token, props.history, setUser])
+  }, [token, history, setUser])
 
   const loading = () => <Loading />
   const loaded = () => {
