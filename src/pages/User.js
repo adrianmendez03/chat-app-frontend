@@ -50,7 +50,7 @@ const User = (props) => {
     return (
       <div id="user" className="page">
         <Backpage location={"/home"} />
-        <ProfileIcon username={username} />
+        <ProfileIcon username={username} personId={props.match.params.id} />
         <div className="username">{username}</div>
         <div className="container">
           <Link to={generateCorrectLink()} className="option">

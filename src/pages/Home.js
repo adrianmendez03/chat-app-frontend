@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react"
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, useHistory } from "react-router-dom"
+import { io } from "socket.io-client"
 
-import { updateUser } from "../api/user"
-import { UserContext } from "../context"
+import { updateUser, connectUser } from "../api/user"
+import { SocketContext, UserContext } from "../context"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import Search from "./Search"
@@ -12,16 +13,33 @@ import Loading from "../components/utils/Loading"
 import "../styles/Home.css"
 
 const Home = (props) => {
+  const history = useHistory()
   const token = JSON.parse(window.localStorage.getItem("token"))
   const { user, setUser } = useContext(UserContext)
+  const { socket, setSocket } = useContext(SocketContext)
 
   useEffect(() => {
     if (!token) {
-      props.history.push("/")
+      history.push("/")
     } else {
-      updateUser(setUser)
+      const makeApiCalls = async () => {
+        updateUser(setUser, setSocket)
+      }
+
+      makeApiCalls()
     }
-  }, [token, props.history, setUser])
+  }, [token])
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("refresh", () => {
+        console.log("refresh")
+        updateUser(setUser)
+      })
+      socket.on("newUser", (clients) => console.log(clients))
+      socket.on("userLeft", (clients) => console.log(clients))
+    }
+  }, [socket])
 
   const loading = () => <Loading />
   const loaded = () => {

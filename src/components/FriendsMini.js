@@ -8,7 +8,7 @@ import "../styles/FriendsMini.css"
 const FriendsMini = (props) => {
   const { user } = useContext(UserContext)
   const roomIds = Object.keys(user.rooms)
-  const friendIds = Object.keys(user.friends)
+  const friends = Object.values(user.friends)
   const socketRef = useRef()
   const [clients, setClients] = useState([])
 
@@ -35,17 +35,10 @@ const FriendsMini = (props) => {
   }
 
   const renderFriends = () => {
-    const { friends } = user
-    return friendIds.map((friendId) => {
+    return friends.map((friend) => {
       return (
-        <div className="mini" key={friendId}>
-          <ProfileIcon roomIds={roomIds} friend={friends[friendId]} />
-          <div className="online-outer">
-            <div
-              className="online-inner"
-              style={{ background: renderColor(friendId) }}
-            ></div>
-          </div>
+        <div className="mini" key={friend.id}>
+          <ProfileIcon username={friend.username} personId={friend.id} />
         </div>
       )
     })

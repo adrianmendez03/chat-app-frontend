@@ -2,6 +2,7 @@ import jwt_decode from "jwt-decode"
 const URL = process.env.REACT_APP_API_URL
 
 export const sendMessage = async (message, roomId) => {
+  console.log(message, roomId)
   const token = JSON.parse(window.localStorage.getItem("token"))
   const user = jwt_decode(token)
 

@@ -47,6 +47,7 @@ const Message = (props) => {
       <ProfileIcon
         username={message.user.username}
         display={{ display: profileDisplay }}
+        personId={message.user.id}
       />
       <div
         className="content"

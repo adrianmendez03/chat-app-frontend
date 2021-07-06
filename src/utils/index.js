@@ -6,6 +6,11 @@ export const createObjectFromArray = (arr) => {
   return obj
 }
 
+export const notifyUser = (socket, userId) => {
+  console.log(socket, userId)
+  socket.emit("notification", userId)
+}
+
 export const createMessageStylings = (messages, sender, index) => {
   let borderRadius = ""
   let profileDisplay = "none"

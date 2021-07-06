@@ -1,10 +1,11 @@
 import jwt_decode from "jwt-decode"
+import { io } from "socket.io-client"
 
 import { createObjectFromArray } from "../utils"
 
 const URL = process.env.REACT_APP_API_URL
 
-export const updateUser = async (setUser) => {
+export const updateUser = async (setUser, setSocket = null) => {
   const token = JSON.parse(window.localStorage.getItem("token"))
   const decoded = jwt_decode(token)
 
@@ -20,6 +21,12 @@ export const updateUser = async (setUser) => {
   data.rooms = await createObjectFromArray(data.rooms)
 
   setUser(data)
+
+  if (setSocket) {
+    const connection = io("https://socket-io-am.herokuapp.com/")
+    connection.emit("saveUser", data.id)
+    setSocket(connection)
+  }
 }
 
 export const handleSignup = async (newUser) => {
