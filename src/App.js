@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Route, Switch } from "react-router-dom"
 import "./App.css"
 
@@ -16,12 +16,6 @@ function App() {
   const [socket, setSocket] = useState(null)
   const userValue = { user, setUser }
   const socketValue = { socket, setSocket }
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("newUser", (clients) => console.log(clients))
-    }
-  }, [socket])
 
   return (
     <UserContext.Provider value={userValue}>

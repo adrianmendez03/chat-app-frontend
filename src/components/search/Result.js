@@ -7,6 +7,7 @@ import {
   handleUnsend,
   handleSend,
 } from "../../api/request"
+import { updateUser } from "../../api/user"
 import { SocketContext, UserContext } from "../../context"
 import ProfileIcon from "../utils/ProfileIcon"
 import Action from "./Action"
@@ -15,7 +16,7 @@ import { notifyUser } from "../../utils"
 
 const Result = (props) => {
   const { username, id } = props
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const { socket } = useContext(SocketContext)
   const history = useHistory()
   const [info, setInfo] = useState({
@@ -51,7 +52,7 @@ const Result = (props) => {
         }
       }
     }
-  }, [])
+  }, [user.requests])
 
   const renderRequestActions = (response) => {
     return response === "received" ? (
@@ -59,16 +60,17 @@ const Result = (props) => {
         <Action
           type="accept"
           handleClick={() => {
-            handleAccept()
+            handleAccept(info.requestId, id)
             notifyUser(socket, id)
           }}
           background={{ background: "cornflowerblue" }}
         />
         <Action
           type="decline"
-          handleClick={() => {
-            handleDecline()
+          handleClick={async () => {
+            await handleDecline(info.requestId)
             notifyUser(socket, id)
+            updateUser(setUser)
           }}
           background={{ background: "rgba(255, 0, 0, 0.8)" }}
         />
@@ -76,9 +78,10 @@ const Result = (props) => {
     ) : (
       <Action
         type="unsend"
-        handleClick={() => {
-          handleUnsend()
+        handleClick={async () => {
+          await handleUnsend(info.requestId)
           notifyUser(socket, id)
+          updateUser(setUser)
         }}
         background={{ background: "rgba(255, 0, 0, 0.8)" }}
       />
@@ -102,7 +105,7 @@ const Result = (props) => {
       )
     }
     // If a request already exists...
-    else if (info.requestId) {
+    else if (user.requests[info.requestId]) {
       // ... render request actions.
       return renderRequestActions(
         user.requests[info.requestId].User_Requests.response
@@ -114,7 +117,11 @@ const Result = (props) => {
       return (
         <Action
           type="send friend request"
-          handleClick={() => handleSend(id)}
+          handleClick={async () => {
+            await handleSend(id)
+            notifyUser(socket, id)
+            updateUser(setUser)
+          }}
           background={{ background: "cornflowerblue" }}
         />
       )

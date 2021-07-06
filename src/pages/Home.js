@@ -25,9 +25,21 @@ const Home = (props) => {
       const makeApiCalls = async () => {
         updateUser(setUser, setSocket)
       }
+
       makeApiCalls()
     }
   }, [token])
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("refresh", () => {
+        console.log("refresh")
+        updateUser(setUser)
+      })
+      socket.on("newUser", (clients) => console.log(clients))
+      socket.on("userLeft", (clients) => console.log(clients))
+    }
+  }, [socket])
 
   const loading = () => <Loading />
   const loaded = () => {

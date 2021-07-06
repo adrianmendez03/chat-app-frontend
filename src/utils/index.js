@@ -7,6 +7,7 @@ export const createObjectFromArray = (arr) => {
 }
 
 export const notifyUser = (socket, userId) => {
+  console.log(socket, userId)
   socket.emit("notification", userId)
 }
 
