@@ -26,7 +26,6 @@ const Preiview = (props) => {
     let username = ""
     room.users.forEach((userInRoom) => {
       if (userInRoom.username !== user.username) {
-        console.log(userInRoom)
         username = userInRoom.username
       }
     })

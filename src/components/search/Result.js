@@ -7,14 +7,16 @@ import {
   handleUnsend,
   handleSend,
 } from "../../api/request"
-import { UserContext } from "../../context"
+import { SocketContext, UserContext } from "../../context"
 import ProfileIcon from "../utils/ProfileIcon"
 import Action from "./Action"
 import "../../styles/Result.css"
+import { notifyUser } from "../../utils"
 
 const Result = (props) => {
   const { username, id } = props
   const { user } = useContext(UserContext)
+  const { socket } = useContext(SocketContext)
   const history = useHistory()
   const [info, setInfo] = useState({
     roomId: null,
@@ -56,19 +58,28 @@ const Result = (props) => {
       <>
         <Action
           type="accept"
-          handleClick={handleAccept}
+          handleClick={() => {
+            handleAccept()
+            notifyUser(socket, id)
+          }}
           background={{ background: "cornflowerblue" }}
         />
         <Action
           type="decline"
-          handleClick={handleDecline}
+          handleClick={() => {
+            handleDecline()
+            notifyUser(socket, id)
+          }}
           background={{ background: "rgba(255, 0, 0, 0.8)" }}
         />
       </>
     ) : (
       <Action
         type="unsend"
-        handleClick={handleUnsend}
+        handleClick={() => {
+          handleUnsend()
+          notifyUser(socket, id)
+        }}
         background={{ background: "rgba(255, 0, 0, 0.8)" }}
       />
     )

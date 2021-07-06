@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
 
 import { fetchRoom } from "../api/room"
-import { UserContext } from "../context"
+import { SocketContext, UserContext } from "../context"
 import Display from "../components/chat/Display"
 import Header from "../components/chat/Header"
 import Loading from "../components/utils/Loading"
@@ -15,13 +15,14 @@ const Room = (props) => {
   const history = useHistory()
 
   const { user, setUser } = useContext(UserContext)
+  const { socket, setSocket } = useContext(SocketContext)
   const [room, setRoom] = useState(null)
 
   useEffect(() => {
     if (!token) {
       history.push("/")
     } else {
-      updateUser(setUser)
+      updateUser(setUser, setSocket)
 
       const makeApiCall = async () => {
         const data = await fetchRoom(roomId)
