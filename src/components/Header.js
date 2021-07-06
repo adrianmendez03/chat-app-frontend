@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div className="nav">
       <Link to="/account">
-        <ProfileIcon username={user.username} />
+        <ProfileIcon username={user.username} personId={user.id} />
       </Link>
       <div id="page-title">{history ? renderPageTitle() : null}</div>
     </div>

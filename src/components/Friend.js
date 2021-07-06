@@ -28,7 +28,7 @@ const Friend = (props) => {
 
   return (
     <div to={`/room/${roomId}`} className="friend">
-      <ProfileIcon username={friend.username} />
+      <ProfileIcon username={friend.username} personId={friend.id} />
       <div className="content">
         <div className="username">{friend.username}</div>
         <div className="actions">

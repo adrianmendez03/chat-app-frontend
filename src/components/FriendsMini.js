@@ -38,7 +38,7 @@ const FriendsMini = (props) => {
     return friends.map((friend) => {
       return (
         <div className="mini" key={friend.id}>
-          <ProfileIcon username={friend.username} />
+          <ProfileIcon username={friend.username} personId={friend.id} />
         </div>
       )
     })

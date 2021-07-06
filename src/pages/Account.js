@@ -22,12 +22,12 @@ const Account = () => {
 
   const loading = () => <Loading />
   const loaded = () => {
-    const { username } = user
+    const { username, id } = user
 
     return (
       <div id="user" className="page">
         <Backpage location={"/home"} />
-        <ProfileIcon username={username} />
+        <ProfileIcon username={username} personId={id} />
         <div className="username">{username}</div>
         <div className="container">
           <div className="option">

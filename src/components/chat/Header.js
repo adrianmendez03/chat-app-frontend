@@ -15,7 +15,7 @@ const Header = (props) => {
         <div id="chatnav" className="nav">
           <Backpage location={"/home"} />
           <Link to={`/user/${friend.id}`} className="profile-container">
-            <ProfileIcon username={friend.username} />
+            <ProfileIcon username={friend.username} personId={friend.id} />
             {friend.username}
           </Link>
         </div>

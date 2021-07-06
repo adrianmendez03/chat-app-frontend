@@ -130,7 +130,7 @@ const Result = (props) => {
 
   return (
     <div className="result">
-      <ProfileIcon username={username} />
+      <ProfileIcon username={username} personId={id} />
       <div className="content">
         <div className="username">{username}</div>
         <div className="actions">{renderActions()}</div>

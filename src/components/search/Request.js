@@ -55,7 +55,7 @@ const Request = (props) => {
 
   return (
     <div className="request">
-      <ProfileIcon username={request.username} />
+      <ProfileIcon username={request.username} personId={request.id} />
       <div className="content">
         {request.username}
         <div className="actions">{renderActions()}</div>
